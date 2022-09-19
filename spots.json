@@ -3,16 +3,16 @@
         {
             "name": "Equihen",
             "technicalSpotName": "Équihen-plage_france_3019957",
-            "goodDirection" : ["N","NO","NNO","O","OSO","SO","SSO","S","SE","SSE","E","NE","NNE"],
-            "minSpeed" : 1,
-            "maxSpeed" : 50    
+            "goodDirection" : ["SO","O","OSO"],
+            "minSpeed" : 15,
+            "maxSpeed" : 30    
         },
         {
             "name": "La Comté",
             "technicalSpotName": "beugin_france_3032953",
-            "goodDirection" : ["N","NO","NNO","O","OSO","SO","SSO","S","SE","SSE","E","NE","NNE"],
-            "minSpeed" : 1,
-            "maxSpeed" : 50    
+            "goodDirection" : ["O","OSO","SO"],
+            "minSpeed" : 10,
+            "maxSpeed" : 35    
         }
     ]
 }

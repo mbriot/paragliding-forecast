@@ -7,6 +7,12 @@ import json
 
 locale.setlocale(locale.LC_TIME, "fr_FR")
 
+f = open('config.json')
+config = json.loads(f.read())
+sender = config["sender"]
+groupId = config["groupID"]
+f.close()
+
 def getSpots():
     f = open('spots.json')
     return json.loads(f.read())["spots"]
@@ -51,9 +57,6 @@ def scrapeSpots(spots) :
         result.append(spotResult)
     return result
 
-def showResults(result) :
-    print(json.dumps(result, indent=4))
-
 def getResultsByDay(result):
     resultByDay = {}
     for spotResult in result:
@@ -69,13 +72,19 @@ def getResultsByDay(result):
     
     return resultByDay
 
-def pushResultsOnWhatsApp(result):
-    print("pas encore fait")
+def pushResultsOnSignal(result):
+    message = ""
+    for date,spot in result.items():
+        message += f"\n##### {date} ##### \n"
+        for spot,hours in spot.items():
+            message += f"*****{spot.upper()}***** \n"
+            for hour in hours:
+                message += f"\t - {hour['hour']} -> {hour['speed']}km/h, {hour['direction']} \n"
+    result = requests.post('http://localhost:8080/v2/send',headers={"Content-Type":"application/json"}, json={"message": message , "number": sender, "recipients": [groupId]})
 
 if __name__ == "__main__":
     spots = getSpots()
     result = scrapeSpots(spots)
     result = getResultsByDay(result)
-    showResults(result)
-    pushResultsOnWhatsApp(result)
+    pushResultsOnSignal(result)
     
