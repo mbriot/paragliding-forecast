@@ -4,7 +4,13 @@ pip install -r requirements.txt
 
 python main.py
 
+### Send result via Signal App
 
+`docker run -d --name signal-api --restart=always -p 8080:8080       -v $HOME/.local/share/signal-cli:/home/.local/share/signal-cli       -e 'MODE=native' bbernhard/signal-cli-rest-api`
+
+WARNING : backuper $HOME/.local/share/signal-cli en passage en prod
+
+And then follow documentation to register : 
 Doc : https://github.com/bbernhard/signal-cli-rest-api
 Swagger : https://bbernhard.github.io/signal-cli-rest-api/#/Groups/get_v1_groups__number_
 
