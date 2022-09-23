@@ -9,6 +9,8 @@ python main.py
 `docker run -d --name signal-api --restart=always -p 8080:8080       -v $HOME/.local/share/signal-cli:/home/.local/share/signal-cli       -e 'MODE=native' bbernhard/signal-cli-rest-api`
 
 WARNING : backuper $HOME/.local/share/signal-cli en passage en prod
+Si pas de backup : generer QrCode et le scanner avec Signal : http://localhost:8080/v1/qrcodelink?device_name=signal-api 
+Mais du coup accés que aux groupes créés par cette instance
 
 And then follow documentation to register : 
 Doc : https://github.com/bbernhard/signal-cli-rest-api
