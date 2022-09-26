@@ -1,5 +1,7 @@
 #! /bin/bash
 function log() { echo -e "[shell-script][$(date '+%F %T')] $1";};
+[[ $(lsof -t $0| wc -l) -gt 1 ]] && log "At least one of $0 is running, exit now"
+[[ $(lsof -t $0| wc -l) -gt 1 ]] && exit 1
 log "Starting script"
 cd $1
 checkWeatherAnyway=$2
@@ -30,7 +32,7 @@ if [[ $now -gt $eightAmHourToday && $lastRunDay -lt $eightAmHourToday ]] || [[ $
   git co main
   source .venv/bin/activate
   pip3 install -r requirements.txt
-  python3 main.py --spot-file=../spots.json --config-file=../config.json --send-to-signal
+  python3 main.py --spot-file=../spots.json --config-file=../config.json --send-to-signal -v
   git co automatization
   echo "OK,$(date +%d/%m/%YT%H:%M)" > status.txt
   git commit -am "update status"

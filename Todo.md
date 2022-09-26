@@ -1,8 +1,6 @@
 ### Trouver un moyen d'héberger ça en local, le script se lance une seule fois a 10h et a 17h30
-Faire tourner un service sur Mac : comment faire ?
-crontab -e
-* * * * * /Users/MANUEL/Desktop/testCron/test.sh = toute les minutes
-Il faut pref system/ securité/accés au disque -> glisser /usr/sbin/cron et Utilitaire/Terminal.app dedans 
+
+avoir une condition dans spot.json : excludeDay + fromDate-toDate pour comté pas dimanche en chasse, bondue pas semaine hors été, sangatte pas été...
 
 Faire fonctionner depuis mon ordi perso en double run avec cron décallé l'un de l'autre
 En début de shell, envoyer message via curl pour dire commence + quel ordi
