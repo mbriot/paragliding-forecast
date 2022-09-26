@@ -8,7 +8,9 @@ Faire fonctionner depuis mon ordi perso en double run avec cron décallé l'un d
 En début de shell, envoyer message via curl pour dire commence + quel ordi
 Orienter objet pour plus de clarté
 
-Mettre les horaire de marée pour les spots de bord de mer
+Pas besoin de clone a chaque fois, juste un pull des branches
+
+Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 Mettre lien meteo-blue + lien Balise
 
 Librairie pour créer une image texte et avoir de la mise en forme du coup
