@@ -3,10 +3,11 @@
 avoir une condition dans spot.json : excludeDay + fromDate-toDate pour comté pas dimanche en chasse, bondue pas semaine hors été, sangatte pas été...
 
 Faire fonctionner depuis mon ordi perso en double run avec cron décallé l'un de l'autre
-En début de shell, envoyer message via curl pour dire commence + quel ordi
 Orienter objet pour plus de clarté
 
 Pas besoin de clone a chaque fois, juste un pull des branches
+
+Avoir un systeme de tagging et une staging, preprod, prod
 
 Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 Mettre lien meteo-blue + lien Balise

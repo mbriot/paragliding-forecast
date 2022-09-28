@@ -1,7 +1,7 @@
 #! /bin/bash
 function log() { echo -e "[shell-script][$(date '+%F %T')] $1";};
-[[ $(lsof -t $0| wc -l) -gt 1 ]] && log "At least one of $0 is running, exit now"
-[[ $(lsof -t $0| wc -l) -gt 1 ]] && exit 1
+[[ $(/usr/sbin/lsof -t $0| wc -l) -gt 1 ]] && log "At least one of $0 is running, exit now"
+[[ $(/usr/sbin/lsof -t $0| wc -l) -gt 1 ]] && exit 1
 log "Starting script"
 cd $1
 checkWeatherAnyway=$2

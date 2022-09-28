@@ -45,7 +45,7 @@
         {
             "name": "Olhain",
             "technicalSpotName": "olhain_france_2989622",
-            "goodDirection": ["SO","S","SE"],
+            "goodDirection": ["SO","S","SE","SSE","SSO"],
             "minSpeed": 5,
             "maxSpeed": 20
         }
