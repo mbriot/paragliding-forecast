@@ -7,10 +7,15 @@ Orienter objet pour plus de clarté
 
 Pas besoin de clone a chaque fois, juste un pull des branches
 
-Avoir un systeme de tagging et une staging, preprod, prod
+Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=main, prod=tag depuis config.json
 
 Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 Mettre lien meteo-blue + lien Balise
+
+Prendr les données de Windy plutot que Meteoblue
+
+Est-ce qu'un modele de Windy est meilleurs qu'un autre a moyen-terme, long-terme, court-terme ?
+Pour faire ça besoin de persistence et comparaison avec balise
 
 Librairie pour créer une image texte et avoir de la mise en forme du coup
 https://python.plainenglish.io/generating-text-on-image-with-python-eefe4430fe77
