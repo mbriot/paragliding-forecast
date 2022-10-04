@@ -9,7 +9,7 @@
         },
         {
             "name": "La Comté",
-            "technicalSpotName": "beugin_france_3032953",
+            "technicalSpotName": "la-comté_france_3009940",
             "goodDirection" : ["O","OSO","ONO"],
             "minSpeed" : 10,
             "maxSpeed" : 30    
@@ -45,7 +45,7 @@
         {
             "name": "Olhain",
             "technicalSpotName": "olhain_france_2989622",
-            "goodDirection": ["SO","S","SE","SSE","SSO"],
+            "goodDirection": ["SO","S","SE"],
             "minSpeed": 5,
             "maxSpeed": 20
         }
