@@ -10,8 +10,8 @@
         {
             "name": "La Comté",
             "technicalSpotName": "la-comté_france_3009940",
-            "goodDirection" : ["O","OSO","ONO"],
-            "minSpeed" : 10,
+            "goodDirection" : ["O","OSO","ONO","NO"],
+            "minSpeed" : 6,
             "maxSpeed" : 30    
         },
         {
