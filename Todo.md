@@ -14,12 +14,13 @@ Quand on publie une nouvelle release, envoyer un message Signal avec les nouveau
 Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 Mettre lien meteo-blue + lien Balise
 
-Prendr les données de Windy plutot que Meteoblue
-
 Est-ce qu'un modele de Windy est meilleurs qu'un autre a moyen-terme, long-terme, court-terme ?
 Pour faire ça besoin de persistence et comparaison avec balise
 
 Librairie pour créer une image texte et avoir de la mise en forme du coup
 https://python.plainenglish.io/generating-text-on-image-with-python-eefe4430fe77
 
-Mettre des tests unitaires, du poetry, cloud run et cloud function
+# WindyParser
+remettre les bonnes logs
+
+Faire une github pages avec sender class qui commit markdown 

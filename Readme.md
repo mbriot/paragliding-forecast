@@ -2,6 +2,8 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt 
 
+Add geckodriver binary somewhere + export PATH=$PATH:/path/to/gecko
+
 python main.py --spot-file=./spots_test.json --config-file=./config_test.json -v --send-to-signal
 - spot-file : listes des spots en json
 - config-file : signal credentials

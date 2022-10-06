@@ -2,3 +2,6 @@
 config.json
 config_test.json
 spots_test.json
+geckodriver
+geckodriver.log
+**/__pycache__

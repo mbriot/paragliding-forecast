@@ -6,12 +6,11 @@ import locale
 import json
 import click
 import logging
+from parser.windyParser import WindyParser
+from util.logger import getLogger
 
 locale.setlocale(locale.LC_TIME, "fr_FR")
-logger = logging.getLogger("paragliding-forecast")
-ch = logging.StreamHandler()
-ch.setFormatter(logging.Formatter("%(name)s - %(levelname)s - %(message)s"))
-logger.addHandler(ch)
+logger = getLogger("paragliding-forecast", False)
 
 def getConfig(config_file):
     f = open(config_file)
@@ -30,48 +29,9 @@ def getSpots(spot_file):
 def scrapeSpots(spots) :
     result = []
     for spot in spots:
-        spotName = spot["name"]
-        technicalSpotName = spot["technicalSpotName"]
-        goodDirection = spot["goodDirection"]
-        minSpeed = spot["minSpeed"]
-        maxSpeed = spot["maxSpeed"]
-        spotResult = {
-            "name" : spotName,
-            "dates" : [
-
-            ]
-        }
-
-        logger.debug(
-            f"Processing spot {spotName}, technicalSpotName: {technicalSpotName}, goodDirection: {goodDirection}, minSpeed: {minSpeed}, maxSpeed: {maxSpeed}"
-        )
-
-        current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        for day in range(1,8): 
-            resp = requests.get(f'https://www.meteoblue.com/fr/meteo/semaine/{technicalSpotName}?day={day}')
-            soup = BeautifulSoup(resp.content, features="html.parser")
-            current_date = current_date.timestamp() if day == 1 else current_date + 86400
-            dayResult = {
-                "day": current_date,
-                "slots": []
-            }
-            logger.debug(f"Processing day {day} with date {datetime.fromtimestamp(int(current_date)).strftime('%A %d %B')}")
-            windElements = soup.find_all('tr',{'class','windspeeds'})
-            winds = [element.strip() for element in list(filter(None,windElements[0].get_text().split('\n')))][1:]
-            precipitationsElements = soup.find_all('tr',{'class','precips'})
-            precips = [element.strip() for element in list(filter(None,precipitationsElements[0].get_text().split('\n')))][2:]
-
-            for i in [("9h-12h",6,7),("12h-15h",9,10),("15h-18h",12,13)]:
-                actualMinSpeed = int(winds[i[2]].strip().split('-')[0])
-                actualMaxSpeed = int(winds[i[2]].strip().split('-')[1])
-                actualDirection = winds[i[1]].strip()
-                quantityPrecipitation = int(precips[i[1]].replace(" mm","").replace("-","0").replace("< 1","1"))
-                probabilityPrecipitation = int(precips[i[2]].replace("%",""))
-                if actualDirection in goodDirection and actualMinSpeed >= minSpeed and actualMaxSpeed <= maxSpeed and (quantityPrecipitation <= 2 or probabilityPrecipitation < 50)  :
-                    dayResult["slots"].append({"hour" : i[0], "speed": winds[i[2]].strip(), "direction": actualDirection, "precipitation": precips[i[1]], "probabilityPrecipitation": precips[i[2]]})
-
-            if len(dayResult["slots"]) > 0 :
-                spotResult["dates"].append(dayResult)
+        windyParser = WindyParser(spot)
+        html = windyParser.getHtml()
+        spotResult = windyParser.processHtml(html)
         result.append(spotResult)
     return result
 
@@ -103,7 +63,7 @@ def pushResultsOnSignal(result, sender, group_id):
         for spot,hours in result[date].items():
             message += f"*****{spot.upper()}***** \n"
             for hour in hours:
-                message += f"\t - {hour['hour']} -> {hour['speed']}km/h, {hour['direction']}, Pluie : {hour['precipitation']}/{hour['probabilityPrecipitation']} \n"
+                message += f"\t - {hour['hour']} -> {hour['meanWind']}-{hour['maxWind']}km/h, {hour['direction']}, Pluie : {hour['precipitation']} \n"
             message += "\n\n"
         sendSignalMessage(message, sender, group_id)
     if len(result.items()) == 0:
@@ -128,5 +88,3 @@ def processWeather(spot_file, config_file, verbose, send_to_signal):
 
 if __name__ == "__main__":
     processWeather()
-    
-    
