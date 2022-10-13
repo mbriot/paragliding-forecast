@@ -12,14 +12,18 @@
             "url": "50.426/2.500?50.025,2.499,8",
             "goodDirection" : ["O","OSO","ONO","NO"],
             "minSpeed" : 6,
-            "maxSpeed" : 30    
+            "maxSpeed" : 30,
+            "excludeDays": [6],
+            "monthsToExcludes": [9,10,11,12,1,2]
         },
         {
             "name": "Sangatte - Cap Blanc Nez",
             "url": "50.945/1.742?50.548,1.741,8,m:e33agd3",
-            "goodDirection": ["NO","NNO","N"],
-            "minSpeed": 15,
-            "maxSpeed": 30
+            "goodDirection": ["NO","NNO","N","ONO"],
+            "minSpeed": 13,
+            "maxSpeed": 30,
+            "excludeDays": [0,1,2,3,4,5,6],
+            "monthsToExcludes": [2,3,4,5,6,7]
         },
         {
             "name": "Zuydcotte",
@@ -48,6 +52,50 @@
             "goodDirection": ["SSO","S","SSE"],
             "minSpeed": 5,
             "maxSpeed": 20
+        },
+	    {
+            "name": "Licques",
+            "url": "50.786/1.936?50.388,1.934,8",
+            "goodDirection":["S", "SSE", "SE"],
+            "minSpeed": 10,
+            "maxSpeed": 25,
+            "excludeDays": [6],
+            "monthsToExcludes": [9,10,11,12,1,2]
+        },
+        {
+            "name": "Mont Clairon",
+            "url": "49.919/2.729?49.515,2.730,8,m:e2magfH",
+            "goodDirection":["SO"],
+            "minSpeed": 15,
+            "maxSpeed": 30
+        },
+        {
+            "name": "Frencq",
+            "url": "50.559/1.669?50.159,1.670,8,m:e3qagdV",
+            "goodDirection":["NE","NNE"],
+            "minSpeed": 10,
+            "maxSpeed": 25,
+            "excludeDays": [6],
+            "monthsToExcludes": [9,10]
+        },
+        {
+            "name": "La Creche",
+            "url": "50.751/1.606?50.352,1.604,8,m:e3KagdP",
+            "goodDirection":["O","OSO","ONO"],
+            "minSpeed": 10,
+            "maxSpeed": 25,
+            "excludeDays": [0,1,2,3,4,5,6],
+            "monthsToExcludes": [1,2,3,4,5,6,7,8]
+        },
+        {
+            "name": "Cran aux oeufs",
+            "url": "50.847/1.584?50.451,1.582,8,m:e3TagdN",
+            "goodDirection":["OSO"],
+            "minSpeed": 10,
+            "maxSpeed": 25,
+            "excludeDays": [6],
+            "monthsToExcludes": [9,10]
         }
+
     ]
 }
