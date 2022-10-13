@@ -24,6 +24,8 @@ class WindyParser :
         self.minSpeed = spot["minSpeed"]
         self.maxSpeed = spot["maxSpeed"]
         self.goodDirections = spot["goodDirection"]
+        self.excludeDays = spot["excludeDays"]
+        self.monthsToExclude = spot["monthsToExclude"]
         self.windyLogger = getLogger("windyParser", click.get_current_context().params['verbose'])
         options = FirefoxOptions()
         options.add_argument("--headless")
@@ -74,6 +76,12 @@ class WindyParser :
             meanWind = meanWinds[i].get_text()
             precipitation = precipitations[i].get_text()
             datetimeDay = datetime.fromtimestamp(int(timestamp[:-3])).replace(hour=0, minute=0, second=0, microsecond=0)
+            
+            # don't process slot if in a not flyable day due to rules
+            if self.excludeDays and self.monthsToExclude :
+                if datetimeDay.month in self.monthsToExclude and datetimeDay.weekday() in self.excludeDays:
+                    continue
+
             self.windyLogger.debug(f"{datetimeDay.strftime('%A %d %B')}:{hour} -> {meanWind}-{maxWind}kt {direction} ,pluie : {precipitation}")
             maxWind = str(int(float(maxWind) * self.kmhToNode))
             meanWind = str(int(float(meanWind) * self.kmhToNode))
