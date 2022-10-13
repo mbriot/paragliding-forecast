@@ -1,8 +1,7 @@
 import click
 import json
 from util.logger import getLogger
-import requests
-import datetime
+from datetime import datetime
 
 class StdoutSender :
 
@@ -11,4 +10,7 @@ class StdoutSender :
     
     def send(self, weekPrediction):
         print("stdout sender in progress")
-        self.stdoutLogger.debug(json.dumps(weekPrediction, indent=4))
+        prettyWeek = {}
+        for key in weekPrediction:
+            prettyWeek[datetime.fromtimestamp(int(key)).strftime('%A %d %B')] =  weekPrediction[key]
+        self.stdoutLogger.debug(json.dumps(prettyWeek, indent=4))
