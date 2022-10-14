@@ -9,7 +9,7 @@ layout: my-layout
 {% for spot, slots in spots.items() -%}
 ### {{ spot }}
 {% for slot in slots -%}
-- {{ slot.hour }} : {{ slot.meanWind }}-{{ slot.maxWind }}km/h, {{ spot.direction }}, Pluie: {{ spot.precipitation }}
+- {{ slot.hour }} : {{ slot.meanWind }}-{{ slot.maxWind }}km/h, {{ slot.direction }}, Pluie: {{ slot.precipitation if slot.precipitation != '' else '-' }}
 {% endfor %}
 {% endfor %}
 {% endfor %}

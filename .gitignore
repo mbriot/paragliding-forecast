@@ -5,3 +5,4 @@ spots_test.json
 geckodriver
 geckodriver.log
 **/__pycache__
+index.markdown
