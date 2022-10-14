@@ -46,7 +46,7 @@ class WindyParser :
 
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[2]/div[1]").click() # click on Basic
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[3]/div[8]").click() # click on Arome
-        time.sleep(1)
+        time.sleep(3)
         htmlElements = self.driver.page_source
         self.driver.close()
         return htmlElements
