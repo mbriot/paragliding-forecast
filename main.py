@@ -3,11 +3,15 @@ import locale
 import json
 import click
 from parser.windyParser import WindyParser
-from util.logger import getLogger
 from sender.sender import PredictionSender
+import logging
+
+logger = logging.getLogger()
+ch = logging.StreamHandler()
+ch.setFormatter(logging.Formatter("%(name)s - %(levelname)s - %(message)s"))
+logger.addHandler(ch)
 
 locale.setlocale(locale.LC_TIME, "fr_FR")
-logger = getLogger("paragliding-forecast", False)
 
 def getSpots(spot_file):
     f = open(spot_file)
@@ -47,6 +51,7 @@ def getResultsByDay(result):
 @click.option("--send-to-stdout", is_flag=True)
 @click.option("--verbose", "-v", is_flag=True, help="Be verbose please")
 def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout):
+    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.debug(f"Parameters :  spot_file : {spot_file}, config_file: {config_file}")
     spots = getSpots(spot_file)
     result = scrapeSpots(spots)

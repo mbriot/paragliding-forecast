@@ -10,9 +10,14 @@ from datetime import datetime
 import time
 from bs4 import BeautifulSoup
 import locale
-from util.logger import getLogger
-import click
 locale.setlocale(locale.LC_TIME, "fr_FR")
+import logging
+
+logger = logging.getLogger(__name__)
+seleniumLogger = logging.getLogger('selenium.webdriver.remote.remote_connection')
+seleniumLogger.setLevel(logging.WARNING)
+ulrlib3Logger = logging.getLogger('urllib3.connectionpool')
+ulrlib3Logger.setLevel(logging.WARNING)
 
 class WindyParser :
 
@@ -26,13 +31,12 @@ class WindyParser :
         self.goodDirections = spot["goodDirection"]
         self.excludeDays = spot.get("excludeDays", None)
         self.monthsToExclude = spot.get("monthsToExcludes",None)
-        self.windyLogger = getLogger("windyParser", click.get_current_context().params['verbose'])
         options = FirefoxOptions()
         options.add_argument("--headless")
         self.driver = webdriver.Firefox(options=options)
 
     def getHtml(self):
-        self.windyLogger.debug(f"start processing spot {self.spotName}")
+        logger.debug(f"start processing spot {self.spotName}")
         self.driver.get(f"https://www.windy.com/{self.spotUrl}")
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
@@ -48,7 +52,7 @@ class WindyParser :
         return htmlElements
     
     def processHtml(self, html):
-        self.windyLogger.info(f"Start parsing html for spot {self.spotName}")
+        logger.info(f"Start parsing html for spot {self.spotName}")
         soup = BeautifulSoup(html,"html.parser")
         result = soup.find("table", { "id" : "detail-data-table" })
 
@@ -82,7 +86,7 @@ class WindyParser :
                 if datetimeDay.month in self.monthsToExclude and datetimeDay.weekday() in self.excludeDays:
                     continue
 
-            self.windyLogger.debug(f"{datetimeDay.strftime('%A %d %B')}:{hour} -> {meanWind}-{maxWind}kt {direction} ,pluie : {precipitation}")
+            logger.debug(f"{datetimeDay.strftime('%A %d %B')}:{hour} -> {meanWind}-{maxWind}kt {direction} ,pluie : {precipitation}")
             maxWind = str(int(float(maxWind) * self.kmhToNode))
             meanWind = str(int(float(meanWind) * self.kmhToNode))
             asTimestamp = datetimeDay.timestamp()
@@ -95,7 +99,7 @@ class WindyParser :
             if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3 :
                 dayResult["slots"].append({"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation })
         
-        self.windyLogger.info(f"End parsing html for spot {self.spotName}") 
+        logger.info(f"End parsing html for spot {self.spotName}") 
         return spotResult 
     
     def getLastModelUpdate(self, html):
