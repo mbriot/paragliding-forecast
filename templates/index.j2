@@ -1,0 +1,15 @@
+---
+layout: my-layout
+---
+
+# Analyse du {{ now }}
+
+{% for day, spots in weekPrediction.items() -%}
+## {{ day }}
+{% for spot, slots in spots.items() -%}
+### {{ spot }}
+{% for slot in slots -%}
+- {{ slot.hour }} : {{ slot.meanWind }}-{{ slot.maxWind }}km/h, {{ spot.direction }}, Pluie: {{ spot.precipitation }}
+{% endfor %}
+{% endfor %}
+{% endfor %}

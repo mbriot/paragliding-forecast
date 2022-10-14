@@ -1,0 +1,18 @@
+{
+"spots":[
+	    {
+            "name": "Licques",
+            "url": "50.786/1.936?50.388,1.934,8",
+            "goodDirection":["S", "SSE", "SE"],
+            "minSpeed": 0,
+            "maxSpeed": 35
+        },
+        {
+            "name": "La Creche",
+            "url": "50.751/1.606?50.352,1.604,8,m:e3KagdP",
+            "goodDirection":["O","OSO","ONO"],
+            "minSpeed": 0,
+            "maxSpeed": 35
+        }
+    ]
+}
