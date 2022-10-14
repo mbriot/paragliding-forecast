@@ -25,7 +25,7 @@ class WindyParser :
         self.maxSpeed = spot["maxSpeed"]
         self.goodDirections = spot["goodDirection"]
         self.excludeDays = spot.get("excludeDays", None)
-        self.monthsToExclude = spot.get("monthsToExclude",None)
+        self.monthsToExclude = spot.get("monthsToExcludes",None)
         self.windyLogger = getLogger("windyParser", click.get_current_context().params['verbose'])
         options = FirefoxOptions()
         options.add_argument("--headless")
