@@ -1,0 +1,73 @@
+- name: test
+  debug:
+    msg: 'on commence !'
+
+- name: remove paragliding
+  file:
+    path: /home/centos/paragliding-forecast
+    state: absent
+
+- name: remove parapente
+  file:
+    path: /home/centos/parapente-dans-le-nord
+    state: absent
+
+- name: Clone paragliding-forecast
+  git:
+    repo: "git@github.com:mbriot/paragliding-forecast.git"
+    dest: /home/centos/paragliding-forecast
+    accept_hostkey: yes
+    key_file: /home/centos/.ssh/id_rsa
+
+- name: Clone parapente-dans-le-nord
+  git:
+    repo: "git@github.com:parapente-dans-le-nord/parapente-dans-le-nord.github.io.git"
+    dest: /home/centos/parapente-dans-le-nord
+    accept_hostkey: yes
+    key_file: /home/centos/.ssh/parapente-dans-le-nord
+
+- name: Make a venv
+  shell:
+    cmd: python3 -m venv .venv
+    chdir: /home/centos/paragliding-forecast
+
+- name: Activate venv
+  shell:
+    cmd: source .venv/bin/activate
+    chdir: /home/centos/paragliding-forecast
+    
+- name: Install libs
+  shell:
+    cmd: python3 -m pip install -r requirements.txt
+    chdir: /home/centos/paragliding-forecast
+
+- name: Run python
+  shell: 
+    cmd: 'python3 main.py --config-file=/home/centos/config.json --spot-file=spots.json \
+      -v --send-to-website > /home/centos/log.log' 
+    chdir: /home/centos/paragliding-forecast
+
+- name: Move index.markdown in parapente-dans-le-nord
+  shell:
+    cmd: mv index.markdown /home/centos/.ssh/parapente-dans-le-nord
+    chdir: /home/centos/paragliding-forecast
+
+- name: commit
+  shell:
+    cmd: git commit -m "update index.markdown"
+    chdir: /home/centos/parapente-dans-le-nord
+
+- name: push
+  shell:
+    cmd: git push
+    chdir: /home/centos/parapente-dans-le-nord
+
+- name: remove paragliding
+  file:
+    path: /home/centos/paragliding-forecast
+    state: absent
+
+- name: remove parapente
+  file:
+    path: /home/centos/parapente-dans-le-nord
+    state: absent

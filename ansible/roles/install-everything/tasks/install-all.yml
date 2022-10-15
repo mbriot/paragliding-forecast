@@ -1,0 +1,11 @@
+
+- name: test
+  debug:
+    msg: 'echo toto'
+
+- name: Install a list of packages (suitable replacement for 2.11 loop deprecation warning)
+  yum:
+    name:
+      - git
+    state: present
+
