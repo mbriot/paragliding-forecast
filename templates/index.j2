@@ -5,11 +5,19 @@ layout: my-layout
 # Analyse du {{ now }}
 
 {% for day, spots in weekPrediction.items() -%}
+
 ## {{ day }}
+
 {% for spot, slots in spots.items() -%}
+
 ### {{ spot }}
+
+{% if slots[0].balise is not none %}[BALISE]({{ slots[0].balise }}) - {% endif %} [WINDY]({{ "https://windy.com/"  + slots[0].url }})
+
 {% for slot in slots -%}
+
 - {{ slot.hour }} : {{ slot.meanWind }}-{{ slot.maxWind }}km/h, {{ slot.direction }}, Pluie: {{ slot.precipitation if slot.precipitation != '' else '-' }}
+
 {% endfor %}
 {% endfor %}
 {% endfor %}

@@ -5,7 +5,8 @@
             "url": "50.679/1.572?50.279,1.571,8,m:e3CagdM",
             "goodDirection" : ["SO","O","OSO"],
             "minSpeed" : 15,
-            "maxSpeed" : 30
+            "maxSpeed" : 30,
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
         },
         {
             "name": "La Comté",
@@ -14,7 +15,8 @@
             "minSpeed" : 6,
             "maxSpeed" : 30,
             "excludeDays": [6],
-            "monthsToExcludes": [9,10,11,12,1,2]
+            "monthsToExcludes": [9,10,11,12,1,2],
+            "balise":"https://balisemeteo.com/balise.php?idBalise="
         },
         {
             "name": "Sangatte - Cap Blanc Nez",
@@ -23,28 +25,32 @@
             "minSpeed": 13,
             "maxSpeed": 30,
             "excludeDays": [0,1,2,3,4,5,6],
-            "monthsToExcludes": [2,3,4,5,6,7]
+            "monthsToExcludes": [2,3,4,5,6,7],
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
         },
         {
             "name": "Zuydcotte",
             "url": "51.064/2.491?50.669,2.488,8,m:e4hagfk",
             "goodDirection": ["NNO","NNE","N"],
             "minSpeed": 15,
-            "maxSpeed": 30
+            "maxSpeed": 30,
+            "balise":"https://www.allosurf.net/meteo/live/dunkerque-station-meteo-lfak-8329.html"
         },
         {
             "name": "Wissant",
             "url": "50.885/1.653?50.488,1.653,8,m:e3XagdU",
             "goodDirection": ["ONO","NO","N","NNO"],
             "minSpeed": 15,
-            "maxSpeed": 30
+            "maxSpeed": 30,
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
         },
         {
             "name": "Hornu",
             "url": "50.424/3.819?50.024,3.818,8,m:e3daghw",
             "goodDirection": ["OSO","ONO","O"],
             "minSpeed": 10,
-            "maxSpeed": 30
+            "maxSpeed": 30,
+            "balise": "https://balisemeteo.com/balise_histo.php?idBalise=5040"
         },
         {
             "name": "Olhain",
@@ -76,7 +82,8 @@
             "minSpeed": 10,
             "maxSpeed": 25,
             "excludeDays": [6],
-            "monthsToExcludes": [9,10]
+            "monthsToExcludes": [9,10],
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
         },
         {
             "name": "La Creche",
@@ -85,7 +92,8 @@
             "minSpeed": 10,
             "maxSpeed": 25,
             "excludeDays": [0,1,2,3,4,5,6],
-            "monthsToExcludes": [1,2,3,4,5,6,7,8]
+            "monthsToExcludes": [1,2,3,4,5,6,7,8],
+            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
         },
         {
             "name": "Cran aux oeufs",
@@ -94,7 +102,8 @@
             "minSpeed": 10,
             "maxSpeed": 25,
             "excludeDays": [6],
-            "monthsToExcludes": [9,10]
+            "monthsToExcludes": [9,10],
+            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
         }
 
     ]

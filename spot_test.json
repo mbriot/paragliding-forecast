@@ -12,7 +12,8 @@
             "url": "50.751/1.606?50.352,1.604,8,m:e3KagdP",
             "goodDirection":["O","OSO","ONO"],
             "minSpeed": 0,
-            "maxSpeed": 35
+            "maxSpeed": 35,
+            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
         }
     ]
 }

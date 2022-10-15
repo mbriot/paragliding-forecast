@@ -31,6 +31,7 @@ class WindyParser :
         self.goodDirections = spot["goodDirection"]
         self.excludeDays = spot.get("excludeDays", None)
         self.monthsToExclude = spot.get("monthsToExcludes",None)
+        self.balise = spot.get("balise",None)
         options = FirefoxOptions()
         options.add_argument("--headless")
         self.driver = webdriver.Firefox(options=options)
@@ -65,6 +66,8 @@ class WindyParser :
 
         spotResult = {
             "name": self.spotName,
+            "url": self.spotUrl,
+            "balise": self.balise,
             "dates": []
         }
         now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
@@ -97,7 +100,7 @@ class WindyParser :
                 dayResult = { "day": asTimestamp, "slots": [] }
 
             if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3 :
-                dayResult["slots"].append({"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation })
+                dayResult["slots"].append({"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl })
         
         logger.info(f"End parsing html for spot {self.spotName}") 
         return spotResult 
