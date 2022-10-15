@@ -106,5 +106,27 @@ class WindyParser :
         return spotResult 
     
     def getLastModelUpdate(self, html):
+#        result = soup.find("span", { "class" : "dbitem model-info mobilehide" }).get_text().replace(chr(160),chr(32))
+#        hourToRemove = 0
+#        mnToRemove = 0
+#        if re.search('([0-9]+) h', result) is not None:
+#            hourToRemove = int(re.search('([0-9]+) h',result).group(1))
+#        
+#        if re.search('([0-9]+) min', result) is not None:
+#            mnToRemove = int(re.search('([0-9]+) min',result).group(1))
+#        
+#        today = datetime.today().strftime('%H:%M %p')
+#        print(today)
+#        lastUpdate = (datetime.today() - timedelta(hours=hourToRemove, minutes=mnToRemove)).strftime('%H:%M %p')
+#        print(lastUpdate)
+#        if today == lastUpdate:
+#            print("rien a faire")
+#        else :
+#            print("faut bosser")
+        # check if file last update in ../lastupdate-arome.txt
+        # read content
+        # get last update from html
+        # if last update = persistent last update -> log.info pas besoin de continuer exit(0)
+        # sinon retourner date de derniere mise a jour et continuer
         return ""
 
