@@ -45,7 +45,7 @@
 
 - name: Check that index.markdown exists
   stat:
-    path: home/centos/paragliding-forecast/index.markdown
+    path: /home/centos/paragliding-forecast/index.markdown
   register: stat_result
 
 - meta: end_play

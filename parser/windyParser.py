@@ -115,6 +115,8 @@ class WindyParser :
         hourToRemove = 0
         if re.search('([0-9]+) h', result) is not None:
             hourToRemove = int(re.search('([0-9]+) h',result).group(1))
+        if re.search('([0-9]+)h', result) is not None:
+            hourToRemove = int(re.search('([0-9]+)h',result).group(1))
         logger.debug(f"remove {hourToRemove} hours to {datetime.now().strftime('%A %d %B %H')}")
         lastUpdate = (datetime.now() - timedelta(hours=hourToRemove)).strftime('%A %d %B %H') 
         logger.debug("end checking last windy model update")
