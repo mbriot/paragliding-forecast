@@ -42,7 +42,7 @@
     name: "launch_predictions"
     user: "centos"
     weekday: "*"
-    minute: "30"
-    hour: "*"
-    job: "ap ansible/run.yml"
+    minute: "0"
+    hour: "7-23"
+    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
     state: present

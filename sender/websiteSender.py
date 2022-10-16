@@ -16,7 +16,7 @@ class WebsiteSender :
         file_loader = FileSystemLoader('templates')
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
-        template.globals['now'] = datetime.now().strftime('%A %d %B')
+        template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
         output = template.render(weekPrediction=sortedPrediction, lastAromeUpdate=lastAromeUpdate)
 
         f = open("index.markdown","w")

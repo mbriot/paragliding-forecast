@@ -23,17 +23,7 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
-hebergement OVH
-
-Ansible sur VM OVH :
-- un playbook pour l'installation
-- un playbook lié a un cron pour le run
-
 gestion docker signal, config-file
-
-Bug locale 2h de moins sur serveur OVH
-
-Ajouter la date dans le logger
 
 logrotation 500Mo
 
@@ -46,6 +36,6 @@ mettre du google analytics pour savoir popularité
 
 Faire de la doc de mise en prod pour le repo : dev en local, description option, idée d'exploit : ansible + cron, local + stdout
 
-
+send mail avec gmail : https://www.howtoforge.com/tutorial/configure-postfix-to-use-gmail-as-a-mail-relay/
 
 
