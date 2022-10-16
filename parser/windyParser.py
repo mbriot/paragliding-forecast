@@ -109,6 +109,7 @@ class WindyParser :
         logger.debug("start checking last windy model update")
         soup = BeautifulSoup(html,"html.parser")
         result = soup.find("span", { "class" : "dbitem model-info mobilehide" }).get_text().replace(chr(160),chr(32))
+        logger.debug(f"windy saying last update model was {result}")
         hourToRemove = 0
         mnToRemove = 0
         if re.search('([0-9]+) h', result) is not None:
@@ -116,8 +117,8 @@ class WindyParser :
         
         if re.search('([0-9]+) min', result) is not None:
             mnToRemove = int(re.search('([0-9]+) min',result).group(1))
-        
-        lastUpdate = (datetime.today() - timedelta(hours=hourToRemove, minutes=mnToRemove)).strftime('%A %d %B %H:%M') 
+        logger.debug(f"remove {hourToRemove} hours and {mnToRemove} min to {datetime.now().strftime('%A %d %B %H:%M')}")
+        lastUpdate = (datetime.now() - timedelta(hours=hourToRemove, minutes=mnToRemove)).strftime('%A %d %B %H:%M') 
         logger.debug("end checking last windy model update")
         return lastUpdate
 

@@ -20,7 +20,7 @@
     repo: "git@github.com:parapente-dans-le-nord/parapente-dans-le-nord.github.io.git"
     dest: /home/centos/parapente-dans-le-nord
     accept_hostkey: yes
-    key_file: /home/centos/.ssh/parapente-dans-le-nord
+    key_file: /home/centos/.ssh/id_rsa
 
 - name: Make a venv
   shell:
@@ -45,12 +45,12 @@
 
 - name: Move index.markdown in parapente-dans-le-nord
   shell:
-    cmd: mv index.markdown /home/centos/.ssh/parapente-dans-le-nord
+    cmd: mv index.markdown /home/centos/parapente-dans-le-nord
     chdir: /home/centos/paragliding-forecast
 
 - name: commit
   shell:
-    cmd: git commit -m "update index.markdown"
+    cmd: git commit -am "update index.markdown"
     chdir: /home/centos/parapente-dans-le-nord
 
 - name: push
