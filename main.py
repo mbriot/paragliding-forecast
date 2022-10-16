@@ -2,9 +2,11 @@
 import locale
 import json
 import click
+import os
 from parser.windyParser import WindyParser
 from sender.sender import PredictionSender
 import logging
+from datetime import datetime
 
 logger = logging.getLogger()
 ch = logging.StreamHandler()
@@ -12,6 +14,8 @@ ch.setFormatter(logging.Formatter("%(name)s - %(levelname)s - %(message)s"))
 logger.addHandler(ch)
 
 locale.setlocale(locale.LC_TIME, "fr_FR")
+
+lastAromeFile = "/tmp/lastAromeUpdate"
 
 def getSpots(spot_file):
     f = open(spot_file)
@@ -43,6 +47,26 @@ def getResultsByDay(result):
     
     return resultByDay
 
+def needToProcess(spot):
+    windyParser = WindyParser(spot)
+    html = windyParser.getHtml()
+    lastWindyUpdate = windyParser.getLastModelUpdate(html)
+    logger.debug(f"found lastWindyUpdate to be {lastWindyUpdate}")
+    if os.path.isfile(lastAromeFile) is False:
+        f = open(lastAromeFile,"w"); f.close()
+    f = open(lastAromeFile,"r")
+    lastUpdate = f.read()
+    logger.debug(f"found last process date to be {lastUpdate}")
+    f.close()
+    if lastUpdate == "" or lastUpdate != lastWindyUpdate:
+        f = open(lastAromeFile,"w")
+        f.write(lastWindyUpdate)
+        f.close()
+        return (True, lastWindyUpdate)
+
+    if lastUpdate == lastWindyUpdate:
+        return (False, lastWindyUpdate)
+
 @click.command()
 @click.option("--spot-file", required=True, type=str)
 @click.option("--config-file", required=True, type=str)
@@ -50,13 +74,20 @@ def getResultsByDay(result):
 @click.option("--send-to-website", is_flag=True)
 @click.option("--send-to-stdout", is_flag=True)
 @click.option("--verbose", "-v", is_flag=True, help="Be verbose please")
-def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout):
+@click.option("--process-anyway", is_flag=True)
+def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout, process_anyway):
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.debug(f"Parameters :  spot_file : {spot_file}, config_file: {config_file}")
     spots = getSpots(spot_file)
-    result = scrapeSpots(spots)
-    result = getResultsByDay(result)
-    PredictionSender().send(result)
+    if process_anyway is False:
+        need, lastAromeUpdate = needToProcess(spots[0])
+        if need is False:
+            logger.info("prevision déjà a jour, pas besoin d'aller plus loin")
+            exit(0)
+    predictions = scrapeSpots(spots)
+    predictions = getResultsByDay(predictions)
+    lastAromeUpdate = datetime.now().strftime('%A %d %B %H:%M') if process_anyway is True else lastAromeUpdate
+    PredictionSender().send(predictions,lastAromeUpdate)
     
 
 if __name__ == "__main__":
