@@ -31,6 +31,10 @@ Ansible sur VM OVH :
 
 Bug locale 2h de moins sur serveur OVH
 
+Ajouter la date dans le logger
+
+logrotation 500Mo
+
 Pas besoin de clone a chaque fois, juste un pull des branches
 Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=main, prod=tag depuis config.json
 
