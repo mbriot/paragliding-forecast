@@ -10,7 +10,7 @@ from datetime import datetime
 
 logger = logging.getLogger()
 ch = logging.StreamHandler()
-ch.setFormatter(logging.Formatter("%(name)s - %(levelname)s - %(message)s"))
+ch.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
 logger.addHandler(ch)
 
 locale.setlocale(locale.LC_TIME, "fr_FR")

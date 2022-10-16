@@ -43,6 +43,14 @@
       -v --send-to-website &>> /home/centos/log.log' 
     chdir: /home/centos/paragliding-forecast
 
+- name: Check that index.markdown exists
+  stat:
+    path: home/centos/paragliding-forecast/index.markdown
+  register: stat_result
+
+- meta: end_play
+  when: not stat_result.stat.exists
+
 - name: Move index.markdown in parapente-dans-le-nord
   shell:
     cmd: mv index.markdown /home/centos/parapente-dans-le-nord

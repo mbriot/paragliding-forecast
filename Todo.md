@@ -29,6 +29,8 @@ Ansible sur VM OVH :
 - un playbook pour l'installation
 - un playbook lié a un cron pour le run
 
+gestion docker signal, config-file
+
 Bug locale 2h de moins sur serveur OVH
 
 Ajouter la date dans le logger
