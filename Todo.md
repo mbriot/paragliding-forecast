@@ -29,6 +29,8 @@ Ansible sur VM OVH :
 - un playbook pour l'installation
 - un playbook lié a un cron pour le run
 
+Bug locale 2h de moins sur serveur OVH
+
 Pas besoin de clone a chaque fois, juste un pull des branches
 Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=main, prod=tag depuis config.json
 

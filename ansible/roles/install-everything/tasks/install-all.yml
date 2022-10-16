@@ -1,11 +1,40 @@
+# Remove vim which remove sudo, then install latest version
+#sudo -i
+#rpm -Uvh http://mirror.ghettoforge.org/distributions/gf/gf-release-latest.gf.el7.noarch.rpm
+#rpm --import http://mirror.ghettoforge.org/distributions/gf/RPM-GPG-KEY-gf.el7
+#
+## WARNING: removing  vim-minimal uninstalls `sudo` if you skip the second step
+##          make sure to at least run `yum install sudo`
+#yum -y remove vim-minimal vim-common vim-enhanced
+#yum -y --enablerepo=gf-plus install vim-enhanced sudo
 
-- name: test
-  debug:
-    msg: 'echo toto'
-
-- name: Install a list of packages (suitable replacement for 2.11 loop deprecation warning)
+- name: Install packages
   yum:
     name:
       - git
+      - firefox
     state: present
 
+- name: Create bin directory
+  file:
+    path: /home/centos/bin
+    state: directory
+
+- name: download geckodriver
+  get_url: 
+    url: https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz
+    dest: /tmp
+
+- name: Untar gecko
+  unarchive:
+    src: /tmp/geckodriver-v0.32.0-linux64.tar.gz
+    dest: /home/centos/bin
+    mode: +x
+
+- name: add bin to path
+  command: echo "export PATH=$PATH:/home/centos/bin" >> /home/centos/.bash_profile
+
+# wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+# tar -xvzf geckodriver*
+# chmod +x geckodriver
+# export PATH=$PATH:/path-to-extracted-file/. a mettre dans bash_profile

@@ -23,4 +23,3 @@ class WebsiteSender :
         f.write(output)
         f.close()
         logger.debug("Markdown generated")
-        print(output)
