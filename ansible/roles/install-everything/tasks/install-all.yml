@@ -34,6 +34,9 @@
 - name: add bin to path
   command: echo "export PATH=$PATH:/home/centos/bin" >> /home/centos/.bash_profile
 
+- name: set timezone to Europe/Paris
+  command: timedatectl set-timezone Europe/Paris
+
 - name: Run CRON job to launch prediction playbook at every 30th minute of every hour.
   cron:
     name: "launch_predictions"
