@@ -57,7 +57,7 @@
             "url": "50.434/2.586?50.031,2.587,8,m:e3eagft",
             "goodDirection": ["SSO","S","SSE"],
             "minSpeed": 5,
-            "maxSpeed": 20
+            "maxSpeed": 25
         },
 	    {
             "name": "Licques",

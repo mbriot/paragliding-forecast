@@ -1,3 +1,5 @@
+# vi .bash_profile -> PS1='\[\033[02;32m\]\u:\[\033[02;32m\]\w\$\[\033[00m\] '
+# Install epel-repo puis python pip , puis ansible avec pip
 # Remove vim which remove sudo, then install latest version
 #sudo -i
 #rpm -Uvh http://mirror.ghettoforge.org/distributions/gf/gf-release-latest.gf.el7.noarch.rpm
@@ -13,7 +15,51 @@
     name:
       - git
       - firefox
+      - yum-utils
     state: present
+
+- name: Add docker repo 
+  yum_repository:
+    name: docker
+    description: Docker YUM repo
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    enabled: yes
+
+- name: Ugly fix to docker repo
+  command: sed -i 's/docker-ce.repo/7\/x86_64\/stable/' /etc/yum.repos.d/docker.repo
+
+- name: Install docker packages
+  yum:
+    name:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - python-docker
+    state: present
+
+- name: Make sure docker is started
+  systemd:
+    state: started
+    name: docker
+
+- name: Create shared docker volume directory
+  file:
+    path: /home/centos/data/signal-cli
+    state: directory
+    mode: '0755'
+    recurse: yes
+    
+# Marche pas bien encore
+- name: Create a data container
+  docker_container:
+    name: signal-api
+    image: bbernhard/signal-cli-rest-api:0.112-dev
+    published_ports: 8080:8080
+    restart_policy: always
+    volumes:
+      - /home/centos/data/signal-cli:/home/.local/share/signal-cli 
+    env:
+        MODE: native
 
 - name: Create bin directory
   file:
@@ -37,12 +83,32 @@
 - name: set timezone to Europe/Paris
   command: timedatectl set-timezone Europe/Paris
 
-- name: Run CRON job to launch prediction playbook at every 30th minute of every hour.
+- name: Send to website from 8 to 16 h
   cron:
     name: "launch_predictions"
     user: "centos"
     weekday: "*"
     minute: "0"
-    hour: "7-23"
+    hour: "8-16"
     job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
+    state: present
+
+- name: Send to website from 18 to 23 h
+  cron:
+    name: "launch_predictions"
+    user: "centos"
+    weekday: "*"
+    minute: "0"
+    hour: "18-23"
+    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
+    state: present
+
+- name: Send to Signal twice a day at 7 and 17 h
+  cron:
+    name: "launch_predictions"
+    user: "centos"
+    weekday: "*"
+    minute: "0"
+    hour: "7,17"
+    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml -e'pythonArg=--send-to-signal --process-anyway' &>> /home/centos/log.log"
     state: present

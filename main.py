@@ -59,12 +59,8 @@ def needToProcess(spot):
     logger.debug(f"found last process date to be {lastUpdate}")
     f.close()
     if lastUpdate == "" or lastUpdate != lastWindyUpdate:
-        f = open(lastAromeFile,"w")
-        f.write(lastWindyUpdate)
-        f.close()
         return (True, lastWindyUpdate)
-
-    if lastUpdate == lastWindyUpdate:
+    else:
         return (False, lastWindyUpdate)
 
 @click.command()
@@ -84,10 +80,19 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
         if need is False:
             logger.info("prevision déjà a jour, pas besoin d'aller plus loin")
             exit(0)
-    predictions = scrapeSpots(spots)
+
+    try:
+        predictions = scrapeSpots(spots)
+    except Exception as e:
+        logger.error("There was an error scraping spots")
+        logger.debug(e)
+        exit(1)
     predictions = getResultsByDay(predictions)
     lastAromeUpdate = datetime.now().strftime('%A %d %B %H:%M') if process_anyway is True else lastAromeUpdate
     PredictionSender().send(predictions,lastAromeUpdate)
+    f = open(lastAromeFile,"w")
+    f.write(lastAromeUpdate)
+    f.close()
     
 
 if __name__ == "__main__":

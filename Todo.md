@@ -1,11 +1,8 @@
 ### Dev
-Mettre lien windy + model Arome + lien Balise en entete de spot
 
-Mettre en header de site + signal : model Arome de Windy, mis a jour a la date de
+Si ça ne vole nul part, dire sur Signal et sur Website que ça ne vole nul part, sans faire de blagounette
 
 mettre localisation en description de spot
-
-cron tous les 30 mn -> check date mise a jour Arome, si update faire le process
 
 Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 
@@ -23,9 +20,21 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
-gestion docker signal, config-file
+Mon host est ouvert en http sur 8080, a cause de docker_container d'ansible je pense. Comprendre pourquoi dans iptable, 
+
+Kill firefox process at the end of playbook if any
+use driver.quit() instead of close 
+A surveiller avec un ps faux de temps en temps,wait and see
+
+gestion docker signal, config-file, envoi a signal uniquement matin et soir
+curl localhost:8080/v1/qrcodelink?device_name=signal-api > test.html
+scp xxx@*.vps.ovh.net:/home/centos/test.html /Users/MANUEL/Desktop/
+cat index.html | base64
+data:image/png;base64, rsultatBase64 a metttre dans src de localhost en local
 
 logrotation 500Mo
+
+exposer service http : https://docs.ovh.com/fr/dedicated/firewall-iptables/
 
 Pas besoin de clone a chaque fois, juste un pull des branches
 Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=main, prod=tag depuis config.json
@@ -39,3 +48,4 @@ Faire de la doc de mise en prod pour le repo : dev en local, description option,
 send mail avec gmail : https://www.howtoforge.com/tutorial/configure-postfix-to-use-gmail-as-a-mail-relay/
 
 
+local kill selenium orphan : kill $(ps aux | grep -i firefox -v grep | awk '{print $2}')
