@@ -16,6 +16,8 @@
       - git
       - firefox
       - yum-utils
+      - telnet
+      - tcpdump
     state: present
 
 - name: Add docker repo 
@@ -49,18 +51,18 @@
     mode: '0755'
     recurse: yes
     
-# Marche pas bien encore
-- name: Create a data container
-  docker_container:
-    name: signal-api
-    image: bbernhard/signal-cli-rest-api:0.112-dev
-    published_ports: 8080:8080
-    restart_policy: always
-    volumes:
-      - /home/centos/data/signal-cli:/home/.local/share/signal-cli 
-    env:
-        MODE: native
-
+#- name: Create a docker container
+#  docker_container:
+#    name: signal-api
+#    image: bbernhard/signal-cli-rest-api:0.112-dev
+#    published_ports: 8080:8080
+#    restart_policy: always
+#    volumes:
+#      - /home/centos/data/signal-cli:/home/.local/share/signal-cli 
+#    env:
+#        MODE: native
+#
+# add ip tables rules based on this https://docs.docker.com/network/iptables/
 - name: Create bin directory
   file:
     path: /home/centos/bin
@@ -85,7 +87,7 @@
 
 - name: Send to website from 8 to 16 h
   cron:
-    name: "launch_predictions"
+    name: "launch_predictions website 1"
     user: "centos"
     weekday: "*"
     minute: "0"
@@ -95,7 +97,7 @@
 
 - name: Send to website from 18 to 23 h
   cron:
-    name: "launch_predictions"
+    name: "launch_predictions website 2"
     user: "centos"
     weekday: "*"
     minute: "0"
@@ -103,12 +105,12 @@
     job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
     state: present
 
-- name: Send to Signal twice a day at 7 and 17 h
-  cron:
-    name: "launch_predictions"
-    user: "centos"
-    weekday: "*"
-    minute: "0"
-    hour: "7,17"
-    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml -e'pythonArg=--send-to-signal --process-anyway' &>> /home/centos/log.log"
-    state: present
+#- name: Send to Signal twice a day at 7 and 17 h
+#  cron:
+#    name: "launch_predictions website and signal"
+#    user: "centos"
+#    weekday: "*"
+#    minute: "0"
+#    hour: "7,17"
+#    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml -e'pythonArg=--send-to-signal --process-anyway' &>> /home/centos/log.log"
+#    state: present

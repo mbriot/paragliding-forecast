@@ -21,6 +21,10 @@ Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une p
 
 ### Prod
 Mon host est ouvert en http sur 8080, a cause de docker_container d'ansible je pense. Comprendre pourquoi dans iptable, 
+Oui car : https://docs.docker.com/network/iptables/
+chat.signal.app : 13.248.212.111 + 76.223.92.165
+
+
 
 Kill firefox process at the end of playbook if any
 use driver.quit() instead of close 
