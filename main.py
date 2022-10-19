@@ -60,7 +60,7 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
     spots = getSpots(spot_file)
     try:
         predictions = scrapeSpots(spots)
-    except Exception as e:
+    except BaseException as e:
         logger.error("There was an error scraping spots")
         logger.debug(e)
         exit(1)

@@ -49,3 +49,15 @@ curl -X 'POST' \
 
 // Send message to group, need to create it before
 curl -X POST -H "Content-Type: application/json" -d '{"message": "HELLO FROM AUTOMATED JAMES" , "number": "+3360XXXXX", "recipients": ["group.id"]}' 'http://localhost:8080/v2/send'
+
+// Add members to group
+curl -X 'POST' \
+  'http://localhost:8080/v1/groups/+33XXXX/{groupid}/members' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "members": [
+    "+336XXX",
+    "+336XXXX"
+  ]
+}'
