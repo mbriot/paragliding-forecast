@@ -42,6 +42,7 @@ class WindyParser :
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
         except TimeoutException:
+            logger.debug(f"Timeout processing spot {self.spotName}")
             raise("Loading took too much time!")
 
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[2]/div[1]").click() # click on Basic
