@@ -136,7 +136,7 @@
     weekday: "*"
     minute: "0"
     hour: "10,13,19,22"
-    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --extra-vars "pythonArgs=--process-anyway" &>> /home/centos/log.log
+    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log
     state: present
 
 - name: Send to Signal and website twice a day at 7 and 17 h
@@ -146,5 +146,5 @@
     weekday: "*"
     minute: "0"
     hour: "7,17"
-    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --extra-vars "pythonArgs='--send-to-signal --process-anyway'" &>> /home/centos/log.log
+    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --extra-vars "pythonArgs=--send-to-signal" &>> /home/centos/log.log
     state: present

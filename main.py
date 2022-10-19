@@ -54,8 +54,7 @@ def getResultsByDay(result):
 @click.option("--send-to-website", is_flag=True)
 @click.option("--send-to-stdout", is_flag=True)
 @click.option("--verbose", "-v", is_flag=True, help="Be verbose please")
-@click.option("--process-anyway", is_flag=True)
-def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout, process_anyway):
+def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout):
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.debug(f"Parameters :  spot_file : {spot_file}, config_file: {config_file}")
     spots = getSpots(spot_file)
