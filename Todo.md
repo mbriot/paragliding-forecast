@@ -1,5 +1,8 @@
 ### Dev
 
+Virer check windy model update, tous les spots sont pas mis a jour a la memem frequence.
+Faire un 7h 10 13, 17 19 22 a la place
+
 Si ça ne vole nul part, dire sur Signal et sur Website que ça ne vole nul part, sans faire de blagounette
 
 mettre localisation en description de spot
@@ -20,21 +23,15 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
-Mon host est ouvert en http sur 8080, a cause de docker_container d'ansible je pense. Comprendre pourquoi dans iptable, 
-Oui car : https://docs.docker.com/network/iptables/
-chat.signal.app : 13.248.212.111 + 76.223.92.165
-
-
 
 Kill firefox process at the end of playbook if any
 use driver.quit() instead of close 
 A surveiller avec un ps faux de temps en temps,wait and see
 
 gestion docker signal, config-file, envoi a signal uniquement matin et soir
-curl localhost:8080/v1/qrcodelink?device_name=signal-api > test.html
-scp xxx@*.vps.ovh.net:/home/centos/test.html /Users/MANUEL/Desktop/
-cat index.html | base64
-data:image/png;base64, rsultatBase64 a metttre dans src de localhost en local
+curl localhost:8080/v1/qrcodelink?device_name=signal-api en local
+scp de .locale/signal-cli/data sur le vps
+curl -X GET -H "Content-Type: application/json" 'http://localhost:8080/v1/groups/+33607968615' Pour voir que ça marche
 
 logrotation 500Mo
 

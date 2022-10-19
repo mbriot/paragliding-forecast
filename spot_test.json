@@ -3,7 +3,7 @@
 	    {
             "name": "Licques",
             "url": "50.786/1.936?50.388,1.934,8",
-            "goodDirection":["S", "SSE", "SE"],
+            "goodDirection":["SSE"],
             "minSpeed": 0,
             "maxSpeed": 35
         },

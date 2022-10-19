@@ -1,14 +1,47 @@
-# vi .bash_profile -> PS1='\[\033[02;32m\]\u:\[\033[02;32m\]\w\$\[\033[00m\] '
+### Proc reinstall : 
+#vi .ssh/known_hosts et delete old vps host
+# 1) commenter .ssh/config en local
+# ssh centos@vps-dff361cd.vps.ovh.net
+# entrer le nouveau mot de passe reçu par mail
+# vi .ssh/authorized_keys et mettre la clé publique ovh
+#uncomment Host file from local
+#now you can loggin via ssh without password
+# copié clé github id_rsa dans .ssh
+# lui donner les droits 600 chmod 600 id_rsa
+
 # Install epel-repo puis python pip , puis ansible avec pip
-# Remove vim which remove sudo, then install latest version
+# sudo yum -y install epel-release
+# sudo yum repolist
 #sudo -i
 #rpm -Uvh http://mirror.ghettoforge.org/distributions/gf/gf-release-latest.gf.el7.noarch.rpm
 #rpm --import http://mirror.ghettoforge.org/distributions/gf/RPM-GPG-KEY-gf.el7
-#
-## WARNING: removing  vim-minimal uninstalls `sudo` if you skip the second step
-##          make sure to at least run `yum install sudo`
-#yum -y remove vim-minimal vim-common vim-enhanced
+#yum -y remove vim-minimal vim-common vim-enhanced # removing  vim-minimal uninstalls `sudo`
 #yum -y --enablerepo=gf-plus install vim-enhanced sudo
+# exit sudo 
+# sudo yum install -y python3
+# sudo pip3 install --upgrade pip
+# python3 -m pip install --user ansible
+# verify with ansible-playbook --version
+# scp -r ansible centos@vps-dff361cd.vps.ovh.net:/home/centos
+# ansible-playbook -b ansible/install.yml
+# copy signal data from laptop to /home/centos/data/signla-cli
+
+- name: Copy file with owner and permissions
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dst }}"
+    owner: centos
+    group: centos
+    mode: '0644'
+  with_items:
+    - { src: '.bash_profile', dst: '/home/centos' }
+    - { src: 'iptables.conf', dst: '/home/centos' }
+    - { src: 'sshd_config', dst: '/etc/ssh/sshd_config' }
+
+- name: Restart sshd
+  systemd:
+    state: restarted
+    name: sshd
 
 - name: Install packages
   yum:
@@ -37,7 +70,11 @@
       - docker-ce-cli 
       - containerd.io 
       - python-docker
+    disable_gpg_check: yes
     state: present
+
+- name: pip install docker
+  command: pip3 install docker
 
 - name: Make sure docker is started
   systemd:
@@ -51,18 +88,20 @@
     mode: '0755'
     recurse: yes
     
-#- name: Create a docker container
-#  docker_container:
-#    name: signal-api
-#    image: bbernhard/signal-cli-rest-api:0.112-dev
-#    published_ports: 8080:8080
-#    restart_policy: always
-#    volumes:
-#      - /home/centos/data/signal-cli:/home/.local/share/signal-cli 
-#    env:
-#        MODE: native
-#
-# add ip tables rules based on this https://docs.docker.com/network/iptables/
+- name: Create a docker container
+  docker_container:
+    name: signal-api
+    image: bbernhard/signal-cli-rest-api:0.112-dev
+    published_ports: 8080:8080
+    restart_policy: always
+    volumes:
+      - /home/centos/data/signal-cli:/home/.local/share/signal-cli 
+    env:
+        MODE: native
+
+- name: Apply iptables config
+  command: iptables-restore -n /home/centos/iptables.conf
+
 - name: Create bin directory
   file:
     path: /home/centos/bin
@@ -79,38 +118,33 @@
     dest: /home/centos/bin
     mode: +x
 
-- name: add bin to path
-  command: echo "export PATH=$PATH:/home/centos/bin" >> /home/centos/.bash_profile
-
 - name: set timezone to Europe/Paris
   command: timedatectl set-timezone Europe/Paris
 
-- name: Send to website from 8 to 16 h
-  cron:
-    name: "launch_predictions website 1"
-    user: "centos"
-    weekday: "*"
-    minute: "0"
-    hour: "8-16"
-    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
-    state: present
+- name: Create a symbolic link to ansible-playbook for cron to run
+  file:
+    src: /home/centos/.local/bin/ansible-playbook
+    dest: /usr/bin/ansible-playbook
+    owner: centos
+    group: centos
+    state: link
 
-- name: Send to website from 18 to 23 h
+- name: Send to website at 10, 13, 19,22
   cron:
     name: "launch_predictions website 2"
     user: "centos"
     weekday: "*"
     minute: "0"
-    hour: "18-23"
-    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log"
+    hour: "10,13,19,22"
+    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --extra-vars "pythonArgs=--process-anyway" &>> /home/centos/log.log
     state: present
 
-#- name: Send to Signal twice a day at 7 and 17 h
-#  cron:
-#    name: "launch_predictions website and signal"
-#    user: "centos"
-#    weekday: "*"
-#    minute: "0"
-#    hour: "7,17"
-#    job: "export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml -e'pythonArg=--send-to-signal --process-anyway' &>> /home/centos/log.log"
-#    state: present
+- name: Send to Signal and website twice a day at 7 and 17 h
+  cron:
+    name: "launch_predictions website and signal"
+    user: "centos"
+    weekday: "*"
+    minute: "0"
+    hour: "7,17"
+    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --extra-vars "pythonArgs='--send-to-signal --process-anyway'" &>> /home/centos/log.log
+    state: present

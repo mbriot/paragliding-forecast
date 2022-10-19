@@ -39,8 +39,8 @@
 
 - name: Run python
   shell: 
-    cmd: 'python3 main.py --config-file=/home/centos/data/config.json --spot-file=spots.json 
-      -v --send-to-website &>> /home/centos/log.log' 
+    cmd: 'python3 main.py --config-file=/home/centos/config.json --spot-file=spots.json 
+      -v --send-to-website {{ pythonArgs }} &>> /home/centos/log.log' 
     chdir: /home/centos/paragliding-forecast
 
 - name: Check that index.markdown exists

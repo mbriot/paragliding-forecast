@@ -47,22 +47,6 @@ def getResultsByDay(result):
     
     return resultByDay
 
-def needToProcess(spot):
-    windyParser = WindyParser(spot)
-    html = windyParser.getHtml()
-    lastWindyUpdate = windyParser.getLastModelUpdate(html)
-    logger.debug(f"found lastWindyUpdate to be {lastWindyUpdate}")
-    if os.path.isfile(lastAromeFile) is False:
-        f = open(lastAromeFile,"w"); f.close()
-    f = open(lastAromeFile,"r")
-    lastUpdate = f.read()
-    logger.debug(f"found last process date to be {lastUpdate}")
-    f.close()
-    if lastUpdate == "" or lastUpdate != lastWindyUpdate:
-        return (True, lastWindyUpdate)
-    else:
-        return (False, lastWindyUpdate)
-
 @click.command()
 @click.option("--spot-file", required=True, type=str)
 @click.option("--config-file", required=True, type=str)
@@ -75,12 +59,6 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.debug(f"Parameters :  spot_file : {spot_file}, config_file: {config_file}")
     spots = getSpots(spot_file)
-    if process_anyway is False:
-        need, lastAromeUpdate = needToProcess(spots[0])
-        if need is False:
-            logger.info("prevision déjà a jour, pas besoin d'aller plus loin")
-            exit(0)
-
     try:
         predictions = scrapeSpots(spots)
     except Exception as e:
@@ -88,12 +66,7 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
         logger.debug(e)
         exit(1)
     predictions = getResultsByDay(predictions)
-    lastAromeUpdate = datetime.now().strftime('%A %d %B %H:%M') if process_anyway is True else lastAromeUpdate
-    PredictionSender().send(predictions,lastAromeUpdate)
-    f = open(lastAromeFile,"w")
-    f.write(lastAromeUpdate)
-    f.close()
-    
+    PredictionSender().send(predictions)
 
 if __name__ == "__main__":
     processWeather()

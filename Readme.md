@@ -12,7 +12,7 @@ python main.py --spot-file=./spots_test.json --config-file=./config_test.json -v
 
 ### Send result via Signal App
 
-`docker run -d --name signal-api --restart=always -p 8080:8080       -v $HOME/.local/share/signal-cli:/home/.local/share/signal-cli       -e 'MODE=native' bbernhard/signal-cli-rest-api`
+`docker run -d --name signal-api --restart=always -p 8080:8080       -v $HOME/.local/share/signal-cli:/home/.local/share/signal-cli       -e 'MODE=native' bbernhard/signal-cli-rest-api:0.112-dev`
 
 WARNING : backuper $HOME/.local/share/signal-cli en passage en prod
 Si pas de backup : generer QrCode et le scanner avec Signal : http://localhost:8080/v1/qrcodelink?device_name=signal-api 

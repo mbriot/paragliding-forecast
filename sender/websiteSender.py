@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class WebsiteSender :
 
-    def send(self, weekPrediction, lastAromeUpdate):
+    def send(self, weekPrediction):
         logger.debug("Start generating markdown")
         
         sortedPrediction = {}
@@ -17,7 +17,7 @@ class WebsiteSender :
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
         template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
-        output = template.render(weekPrediction=sortedPrediction, lastAromeUpdate=lastAromeUpdate)
+        output = template.render(weekPrediction=sortedPrediction)
 
         f = open("index.markdown","w")
         f.write(output)

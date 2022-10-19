@@ -72,8 +72,8 @@
             "name": "Mont Clairon",
             "url": "49.919/2.729?49.515,2.730,8,m:e2magfH",
             "goodDirection":["SO"],
-            "minSpeed": 15,
-            "maxSpeed": 30
+            "minSpeed": 12,
+            "maxSpeed": 25
         },
         {
             "name": "Frencq",

@@ -3,8 +3,12 @@ layout: my-layout
 ---
 
 
-# Prevision windy du modèle Arome le {{ lastAromeUpdate }}H:00
-page mise a jour {{ now }}
+# Prevision Windy, modèle Arome
+page mise à jour le {{ now }}
+
+{% if weekPrediction.items() | length == 0 %}
+Ca ne vole nul part malheureusement 😢
+{% endif %}
 
 {% for day, spots in weekPrediction.items() -%}
 
