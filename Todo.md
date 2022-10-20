@@ -1,10 +1,5 @@
 ### Dev
 
-Virer check windy model update, tous les spots sont pas mis a jour a la memem frequence.
-Faire un 7h 10 13, 17 19 22 a la place
-
-Si ça ne vole nul part, dire sur Signal et sur Website que ça ne vole nul part, sans faire de blagounette
-
 mettre localisation en description de spot
 
 Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
@@ -23,11 +18,6 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
-
-Kill firefox process at the end of playbook if any
-use driver.quit() instead of close 
-A surveiller avec un ps faux de temps en temps,wait and see
-
 gestion docker signal, config-file, envoi a signal uniquement matin et soir
 curl localhost:8080/v1/qrcodelink?device_name=signal-api en local
 scp de .locale/signal-cli/data sur le vps
@@ -42,11 +32,6 @@ Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=mai
 
 monit qui check si tout tourne bien
 
-mettre du google analytics pour savoir popularité
-
 Faire de la doc de mise en prod pour le repo : dev en local, description option, idée d'exploit : ansible + cron, local + stdout
 
 send mail avec gmail : https://www.howtoforge.com/tutorial/configure-postfix-to-use-gmail-as-a-mail-relay/
-
-
-local kill selenium orphan : kill $(ps aux | grep -i firefox -v grep | awk '{print $2}')

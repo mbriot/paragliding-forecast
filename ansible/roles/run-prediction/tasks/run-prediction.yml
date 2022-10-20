@@ -75,3 +75,11 @@
   file:
     path: /home/centos/parapente-dans-le-nord
     state: absent
+
+- name: Kill selenium processes
+  shell: "ps -ef  | grep -w marionette | grep -v grep | awk '{print $2}'"
+  register: selenium_processes
+
+- name: Kill running processes
+  shell: "kill {{ item }}"
+  with_items: "{{ selenium_processes.stdout_lines }}"

@@ -29,7 +29,7 @@ class SignalSender :
                 message += "\n\n"
             self.sendSignalMessage(message)
         if len(weekPrediction.items()) == 0:
-            self.sendSignalMessage("Ca ne vole nul part, profites en pour apprendre a plier ton parachute de secours")
+            self.sendSignalMessage("Ça ne vole nul part hélas 😢")
 
     def sendSignalMessage(self, message):
         result = requests.post('http://localhost:8080/v2/send',headers={"Content-Type":"application/json"}, json={"message": message , "number": self.sender, "recipients": [self.groupId]})
