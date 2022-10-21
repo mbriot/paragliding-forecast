@@ -43,6 +43,7 @@ class WindyParser :
         try:
             logger.debug(f"Wait for data to arrive in prediction table for spot {self.spotName}")
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
+            logger.debug(f"data well arrived for spot {self.spotName}")
         except TimeoutException:
             logger.debug(f"Timeout waiting for prediction table for spot {self.spotName}")
             raise("Loading took too much time!")
