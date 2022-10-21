@@ -1,8 +1,10 @@
 ### Dev
 
-mettre localisation en description de spot
+Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
 
-Mettre les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
+Faire la refonte en tableau avec horaire toute journée si ça vole sur un créneau
+
+Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 
 Mettre prévision meteo-france pour la pluie heure par heure si possible
 Mettre risque orage 
@@ -27,8 +29,11 @@ logrotation 500Mo
 
 exposer service http : https://docs.ovh.com/fr/dedicated/firewall-iptables/
 
-Pas besoin de clone a chaque fois, juste un pull des branches
-Avoir un systeme de tagging, une staging=branche depuis config.json, preprod=main, prod=tag depuis config.json
+preprod = preprod.markdown qui prend spot_test.json et config_test.json en paramètre, voir ansible pour avoir config de preprod et de prod
+preprod joué 2 fois par jour et envoi signal + web tous le temps
+
+config prod = tag=xxx, spot_file= spots.json, config_file=config.json
+config preprod = branch=main, spot_file= spot_test.json, config_file=config_test.json
 
 monit qui check si tout tourne bien
 

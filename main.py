@@ -6,7 +6,7 @@ import os
 from parser.windyParser import WindyParser
 from sender.sender import PredictionSender
 import logging
-from datetime import datetime
+import traceback
 
 logger = logging.getLogger()
 ch = logging.StreamHandler()
@@ -60,8 +60,9 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
     spots = getSpots(spot_file)
     try:
         predictions = scrapeSpots(spots)
-    except BaseException as e:
+    except Exception:
         logger.error("There was an error scraping spots")
+        traceback.print_exc()
         exit(1)
     predictions = getResultsByDay(predictions)
     PredictionSender().send(predictions)

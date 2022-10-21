@@ -39,10 +39,12 @@ class WindyParser :
     def getHtml(self):
         logger.debug(f"start processing spot {self.spotName}")
         self.driver.get(f"https://www.windy.com/{self.spotUrl}")
+        logger.debug(f"Page loaded for spot {self.spotName}")
         try:
+            logger.debug(f"Wait for data to arrive in prediction table for spot {self.spotName}")
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
         except TimeoutException:
-            logger.debug(f"Timeout processing spot {self.spotName}")
+            logger.debug(f"Timeout waiting for prediction table for spot {self.spotName}")
             raise("Loading took too much time!")
 
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[2]/div[1]").click() # click on Basic
@@ -104,21 +106,3 @@ class WindyParser :
         
         logger.info(f"End parsing html for spot {self.spotName}") 
         return spotResult 
-    
-    def getLastModelUpdate(self, html):
-        logger.debug("start checking last windy model update")
-        soup = BeautifulSoup(html,"html.parser")
-        result = soup.find("span", { "class" : "dbitem model-info mobilehide" }).get_text()
-        logger.debug(f"windy saying last update model was {result}")
-        result = result.replace(chr(160),chr(32))
-        logger.debug(f"windy after replace strange chars saying last update model was {result}")
-        hourToRemove = 0
-        if re.search('([0-9]+) h', result) is not None:
-            hourToRemove = int(re.search('([0-9]+) h',result).group(1))
-        if re.search('([0-9]+)h', result) is not None:
-            hourToRemove = int(re.search('([0-9]+)h',result).group(1))
-        logger.debug(f"remove {hourToRemove} hours to {datetime.now().strftime('%A %d %B %H')}")
-        lastUpdate = (datetime.now() - timedelta(hours=hourToRemove)).strftime('%A %d %B %H') 
-        logger.debug("end checking last windy model update")
-        return lastUpdate
-
