@@ -42,29 +42,31 @@
     cmd: 'python3 main.py --config-file=/home/centos/config.json --spot-file=spots.json 
       -v --send-to-website {{ pythonArgs }} &>> /home/centos/log.log' 
     chdir: /home/centos/paragliding-forecast
+  ignore_errors: true
+  register: python_result
 
 - name: Check that index.markdown exists
   stat:
     path: /home/centos/paragliding-forecast/index.markdown
   register: stat_result
 
-- meta: end_play
-  when: not stat_result.stat.exists
-
 - name: Move index.markdown in parapente-dans-le-nord
   shell:
     cmd: mv index.markdown /home/centos/parapente-dans-le-nord
     chdir: /home/centos/paragliding-forecast
+  when: stat_result.stat.exists
 
 - name: commit
   shell:
     cmd: git commit -am "update index.markdown"
     chdir: /home/centos/parapente-dans-le-nord
+  when: stat_result.stat.exists
 
 - name: push
   shell:
     cmd: git push
     chdir: /home/centos/parapente-dans-le-nord
+  when: stat_result.stat.exists
 
 - name: remove paragliding
   file:
@@ -76,10 +78,14 @@
     path: /home/centos/parapente-dans-le-nord
     state: absent
 
-- name: Kill selenium processes
+- name: Get selenium processes
   shell: "ps -ef  | grep -w marionette | grep -v grep | awk '{print $2}'"
   register: selenium_processes
 
-- name: Kill running processes
+- name: Kill selenium running processes
   shell: "kill {{ item }}"
   with_items: "{{ selenium_processes.stdout_lines }}"
+
+- fail:
+    msg: Python script failed !
+  when: python_result..stderr | length > 0
