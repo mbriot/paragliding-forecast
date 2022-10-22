@@ -32,6 +32,7 @@ def scrapeSpots(spots) :
                 html = windyParser.getHtml()
                 spotResult = windyParser.processHtml(html)
                 result.append(spotResult)
+                break
             except Exception as e:
                 logger.info(f"exception number {retryNumber} while parsing spot {spot['name']}")
                 continue
