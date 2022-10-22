@@ -26,10 +26,15 @@ def getSpots(spot_file):
 def scrapeSpots(spots) :
     result = []
     for spot in spots:
-        windyParser = WindyParser(spot)
-        html = windyParser.getHtml()
-        spotResult = windyParser.processHtml(html)
-        result.append(spotResult)
+        for retryNumber in range(3):
+            try:
+                windyParser = WindyParser(spot)
+                html = windyParser.getHtml()
+                spotResult = windyParser.processHtml(html)
+                result.append(spotResult)
+            except Exception as e:
+                logger.info(f"exception number {retryNumber} while parsing spot {spot['name']}")
+                continue
     return result
 
 def getResultsByDay(result):

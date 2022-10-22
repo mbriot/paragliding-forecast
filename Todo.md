@@ -20,6 +20,10 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
+
+Industrialiser la proc de securisation du VPS : https://docs.ovh.com/fr/vps/conseils-securisation-vps/
+Tentative d'intrusion ssh dans /var/log/secure déjà visible
+
 gestion docker signal, config-file, envoi a signal uniquement matin et soir
 curl localhost:8080/v1/qrcodelink?device_name=signal-api en local
 scp de .locale/signal-cli/data sur le vps

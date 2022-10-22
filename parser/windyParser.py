@@ -42,11 +42,11 @@ class WindyParser :
         logger.debug(f"Page loaded for spot {self.spotName}")
         try:
             logger.debug(f"Wait for data to arrive in prediction table for spot {self.spotName}")
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
+            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'td-days')))
             logger.debug(f"data well arrived for spot {self.spotName}")
         except TimeoutException:
             logger.debug(f"Timeout waiting for prediction table for spot {self.spotName}")
-            raise("Loading took too much time!")
+            raise Exception("Loading took too much time!")
 
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[2]/div[1]").click() # click on Basic
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[3]/div[8]").click() # click on Arome
