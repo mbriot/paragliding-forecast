@@ -52,7 +52,7 @@ class WindyParser :
         self.driver.find_element(By.XPATH, "//div[@id='detail-box']/div[3]/div[8]").click() # click on Arome
         time.sleep(3)
         htmlElements = self.driver.page_source
-        self.driver.close()
+        self.driver.quit()
         return htmlElements
     
     def processHtml(self, html):
