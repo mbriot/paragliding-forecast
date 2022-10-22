@@ -37,11 +37,12 @@
     - { src: '.bash_profile', dst: '/home/centos' }
     - { src: 'iptables.conf', dst: '/home/centos' }
     - { src: 'sshd_config', dst: '/etc/ssh/sshd_config' }
+    - { src: 'paragliding-logrotate', dst: '/etc/logrotate.d' }
 
-- name: Restart sshd
-  systemd:
-    state: restarted
-    name: sshd
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
 - name: Install packages
   yum:
@@ -51,7 +52,25 @@
       - yum-utils
       - telnet
       - tcpdump
+      - jq
+      - fail2ban
     state: present
+
+- name: Copy fail2ban config file
+  ansible.builtin.copy:
+    src: jail.local
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Restart sshd and fail2ban
+  systemd:
+    state: restarted
+    name: "{{ item }}"
+  with_items: 
+    - sshd
+    - fail2ban
 
 - name: Add docker repo 
   yum_repository:

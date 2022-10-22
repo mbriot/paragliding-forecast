@@ -13,7 +13,7 @@ class WebsiteSender :
         for date in sorted(weekPrediction.keys()):
             sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = weekPrediction[date]        
 
-        file_loader = FileSystemLoader('templates')
+        file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
         template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')

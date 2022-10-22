@@ -1,5 +1,7 @@
 ### Dev
 
+Logfile appender dans /var/log/paragliding-forecast
+
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
 
 Faire la refonte en tableau avec horaire toute journée si ça vole sur un créneau
@@ -21,15 +23,7 @@ Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une p
 
 ### Prod
 
-Industrialiser la proc de securisation du VPS : https://docs.ovh.com/fr/vps/conseils-securisation-vps/
-Tentative d'intrusion ssh dans /var/log/secure déjà visible
-
-gestion docker signal, config-file, envoi a signal uniquement matin et soir
-curl localhost:8080/v1/qrcodelink?device_name=signal-api en local
-scp de .locale/signal-cli/data sur le vps
-curl -X GET -H "Content-Type: application/json" 'http://localhost:8080/v1/groups/+33607968615' Pour voir que ça marche
-
-logrotation 500Mo
+logrotation daily keep 5 dans /var/log/paragliding-forecast
 
 exposer service http : https://docs.ovh.com/fr/dedicated/firewall-iptables/
 

@@ -1,0 +1,88 @@
+[INCLUDES]
+
+before = paths-fedora.conf
+
+[DEFAULT]
+
+ignorecommand =
+
+bantime  = 10m
+
+findtime  = 10m
+
+maxretry = 5
+
+maxmatches = %(maxretry)s
+
+backend = auto
+
+usedns = warn
+
+logencoding = auto
+
+enabled = false
+
+mode = normal
+
+filter = %(__name__)s[mode=%(mode)s]
+
+destemail = root@localhost
+
+sender = root@<fq-hostname>
+
+mta = sendmail
+
+protocol = tcp
+
+chain = <known/chain>
+
+port = 0:65535
+
+fail2ban_agent = Fail2Ban/%(fail2ban_version)s
+
+
+banaction = iptables-multiport
+banaction_allports = iptables-allports
+
+action_ = %(banaction)s[port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
+
+action_mw = %(action_)s
+            %(mta)s-whois[sender="%(sender)s", dest="%(destemail)s", protocol="%(protocol)s", chain="%(chain)s"]
+
+action_mwl = %(action_)s
+             %(mta)s-whois-lines[sender="%(sender)s", dest="%(destemail)s", logpath="%(logpath)s", chain="%(chain)s"]
+
+action_xarf = %(action_)s
+             xarf-login-attack[service=%(__name__)s, sender="%(sender)s", logpath="%(logpath)s", port="%(port)s"]
+
+action_cf_mwl = cloudflare[cfuser="%(cfemail)s", cftoken="%(cfapikey)s"]
+                %(mta)s-whois-lines[sender="%(sender)s", dest="%(destemail)s", logpath="%(logpath)s", chain="%(chain)s"]
+
+action_blocklist_de  = blocklist_de[email="%(sender)s", service="%(__name__)s", apikey="%(blocklist_de_apikey)s", agent="%(fail2ban_agent)s"]
+
+action_badips = badips.py[category="%(__name__)s", banaction="%(banaction)s", agent="%(fail2ban_agent)s"]
+action_badips_report = badips[category="%(__name__)s", agent="%(fail2ban_agent)s"]
+
+action_abuseipdb = abuseipdb
+
+action = %(action_)s
+
+# JAILS
+#
+
+#
+# SSH servers
+#
+
+[sshd]
+
+# To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+# normal (default), ddos, extra or aggressive (combines all).
+# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+mode   = ddos
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+bantime = 1h
+maxretry = 3

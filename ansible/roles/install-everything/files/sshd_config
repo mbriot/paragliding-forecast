@@ -2,6 +2,12 @@ HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_ed25519_key
 
+Port 22
+
+LoginGraceTime 120
+PermitRootLogin no
+StrictModes yes
+
 ClientAliveInterval 300
 ClientAliveCountMax 6
 
@@ -9,7 +15,7 @@ SyslogFacility AUTHPRIV
 
 AuthorizedKeysFile .ssh/authorized_keys
 
-PasswordAuthentication yes
+PasswordAuthentication no
 
 ChallengeResponseAuthentication no
 

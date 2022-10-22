@@ -39,7 +39,7 @@
 
 - name: Run python
   shell: 
-    cmd: 'python3 main.py --config-file=/home/centos/config.json --spot-file=spots.json 
+    cmd: 'python3 src/main.py --config-file=/home/centos/config.json --spot-file=spots.json 
       -v --send-to-website {{ pythonArgs }} &>> /home/centos/log.log' 
     chdir: /home/centos/paragliding-forecast
   ignore_errors: true
@@ -88,4 +88,4 @@
 
 - fail:
     msg: Python script failed !
-  when: python_result..stderr | length > 0
+  when: python_result.stderr | length > 0

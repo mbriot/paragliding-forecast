@@ -55,7 +55,7 @@ def getResultsByDay(result):
 
 @click.command()
 @click.option("--spot-file", required=True, type=str)
-@click.option("--config-file", required=True, type=str)
+@click.option("--config-file", required=False, type=str)
 @click.option("--send-to-signal", is_flag=True)
 @click.option("--send-to-website", is_flag=True)
 @click.option("--send-to-stdout", is_flag=True)
