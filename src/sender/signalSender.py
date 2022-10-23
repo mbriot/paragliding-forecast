@@ -19,17 +19,18 @@ class SignalSender :
         f.close()
 
         logger.debug(f"Send results to Signal")
+        if len(weekPrediction.items()) == 0:
+            return
         self.sendSignalMessage(f"Analyse du {datetime.now().strftime('%A %d %B %H:%M')}")
         for date in sorted(weekPrediction.keys()):
             message = f"\n## {datetime.fromtimestamp(int(date)).strftime('%A %d %B')} ## \n\n"
             for spot,hours in weekPrediction[date].items():
+                onlyFlyableHours = list(filter(lambda x: x.get('flyable') == True, hours))
                 message += f"*****{spot.upper()}***** \n"
-                for hour in hours:
+                for hour in onlyFlyableHours:
                     message += f"\t - {hour['hour']} -> {hour['meanWind']}-{hour['maxWind']}km/h, {hour['direction']}, Pluie : {hour['precipitation']} \n"
                 message += "\n\n"
             self.sendSignalMessage(message)
-        if len(weekPrediction.items()) == 0:
-            self.sendSignalMessage("Ça ne vole nul part hélas 😢")
 
     def sendSignalMessage(self, message):
         result = requests.post('http://localhost:8080/v2/send',headers={"Content-Type":"application/json"}, json={"message": message , "number": self.sender, "recipients": [self.groupId]})
