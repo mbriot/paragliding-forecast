@@ -1,14 +1,9 @@
 ### Dev
 
-Ne rien dire sur signal si ça ne vole nul part, juste quand ça vole
-
 Logfile appender dans /var/log/paragliding-forecast
 
 Faire une page sur le site ou j'ai la météo de tous les sites meme si ça vole pas
-
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
-
-Faire la refonte en tableau avec horaire toute journée si ça vole sur un créneau
 
 Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 

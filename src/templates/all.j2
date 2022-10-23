@@ -1,0 +1,55 @@
+---
+layout: my-layout
+---
+
+
+# Prevision Windy, modèle Arome
+page mise à jour le {{ now }}
+
+{% if weekPrediction.items() | length == 0 %}
+Ca ne vole nul part malheureusement 😢
+{% endif %}
+
+{% for day, spots in weekPrediction.items() -%}
+
+## {{ day }}
+
+{::nomarkdown}
+<table>
+  <tbody>
+    <tr>
+      <td>Spot</td>
+      <td>8-11h</td>
+      <td>11-15h</td>
+      <td>15-17h</td>
+      <td>17h-20h</td>
+    </tr>
+{% for spot, slots in spots.items() -%}
+    <tr>
+        <td><strong>{{ slots[0].name }}</strong>  <br><a href="{{ "https://windy.com/" + slots[0].url }}">WINDY</a> - <span class="{{ '' if slots[0].balise else 'no-balise' }}">{% if slots[0].balise %}<a href="{{ slots[0].balise }}">BALISE</a> {% else %} BALISE {% endif %}</span> </td>
+        {% if slots | length == 1 %}
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="{{ 'flyable' if slots[0].flyable else 'not-flyable' }}"><p>{{ slots[0].meanWind }}-{{ slots[0].maxWind }}km/h {{ slots[0].direction }}</p><p>{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[0].precipitation if slots[0].precipitation else 0}}mm/h</p></div></td> 
+        {% elif slots | length == 2 %}
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="{{ 'flyable' if slots[0].flyable else 'not-flyable' }}"><p>{{ slots[0].meanWind }}-{{ slots[0].maxWind }}km/h {{ slots[0].direction }}</p><p>️{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[0].precipitation if slots[0].precipitation else 0}}mm/h</p></div></td> 
+            <td><div class="{{ 'flyable' if slots[1].flyable else 'not-flyable' }}"><p>{{ slots[1].meanWind }}-{{ slots[1].maxWind }}km/h {{ slots[1].direction }}</p><p>{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[1].precipitation if slots[1].precipitation else 0}}mm/h</p></div></td> 
+        {% elif slots | length == 3 %}
+            <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
+            <td><div class="{{ 'flyable' if slots[0].flyable else 'not-flyable' }}"><p>{{ slots[0].meanWind }}-{{ slots[0].maxWind }}km/h {{ slots[0].direction }}</p><p>{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[0].precipitation if slots[0].precipitation else 0}}mm/h</p></div></td> 
+            <td><div class="{{ 'flyable' if slots[1].flyable else 'not-flyable' }}"><p>{{ slots[1].meanWind }}-{{ slots[1].maxWind }}km/h {{ slots[1].direction }}</p><p>{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[1].precipitation if slots[1].precipitation else 0}}mm/h</p></div></td> 
+            <td><div class="{{ 'flyable' if slots[2].flyable else 'not-flyable' }}"><p>{{ slots[2].meanWind }}-{{ slots[2].maxWind }}km/h {{ slots[2].direction }}</p><p>{{ '🌧' if slots[0].precipitation else '🌞' }} {{ slots[2].precipitation if slots[2].precipitation else 0}}mm/h</p></div></td> 
+        {% elif slots | length == 4 %}
+            {% for slot in slots -%}
+                <td><div class="{{ 'flyable' if slot.flyable else 'not-flyable' }}"><p>{{ slot.meanWind }}-{{ slot.maxWind }}km/h {{ slot.direction }}</p><p>{{ '🌧' if slot.precipitation else '🌞' }} {{ slot.precipitation if slot.precipitation else 0}}mm/h</p></div></td>
+            {% endfor %}
+        {% endif %}
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{:/}
+{% endfor %}

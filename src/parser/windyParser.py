@@ -98,9 +98,7 @@ class WindyParser :
             asTimestamp = datetimeDay.timestamp()
             if asTimestamp != now:
                 now = asTimestamp
-                dayIsFlyable = len(list(filter(lambda x: x.get('flyable') == True, dayResult['slots']))) > 0
-                if dayIsFlyable :
-                    spotResult["dates"].append(dayResult)
+                spotResult["dates"].append(dayResult)
                 dayResult = { "day": asTimestamp, "slots": [] }
 
             slot = {"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl }
