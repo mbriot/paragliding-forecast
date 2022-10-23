@@ -6,3 +6,5 @@ geckodriver
 geckodriver.log
 **/__pycache__
 index.markdown
+all.markdown
+sites.markdown

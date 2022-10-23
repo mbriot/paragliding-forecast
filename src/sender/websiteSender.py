@@ -14,6 +14,7 @@ class WebsiteSender :
     
     def generateFlyableDays(self, weekPrediction):
         logger.debug("Start generating markdown for flyableDays")
+        print(json.dumps(weekPrediction,indent=4))
         #retire les jours pas flyable du tout
         flyablesDay = {}
         for date in weekPrediction:
@@ -26,7 +27,8 @@ class WebsiteSender :
                 if flyablesDay.get(date,None) is not None and flyablesDay[date].get(spot,None) is None and len(flyableHours) > 0:
                     flyablesDay[date][spot] = []
                 if len(flyableHours) > 0:
-                    flyablesDay[date][spot].append(hours)
+                    flyablesDay[date][spot] = flyablesDay[date][spot] + hours
+        print(json.dumps(flyablesDay,indent=4))
         sortedPrediction = {}
         for date in sorted(flyablesDay.keys()):
             sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = flyablesDay[date]        
