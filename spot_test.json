@@ -5,14 +5,14 @@
             "url": "50.786/1.936?50.388,1.934,8",
             "goodDirection":["SSE"],
             "minSpeed": 0,
-            "maxSpeed": 35
+            "maxSpeed": 65
         },
         {
             "name": "La Creche",
             "url": "50.751/1.606?50.352,1.604,8,m:e3KagdP",
-            "goodDirection":["O","OSO","ONO"],
+            "goodDirection":["O","OSO","ONO","SO","SE","SSE","S","ESE","ENE","E"],
             "minSpeed": 0,
-            "maxSpeed": 35,
+            "maxSpeed": 75,
             "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
         }
     ]

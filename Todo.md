@@ -2,6 +2,8 @@
 
 Logfile appender dans /var/log/paragliding-forecast
 
+Faire une page sur le site ou j'ai la météo de tous les sites meme si ça vole pas
+
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
 
 Faire la refonte en tableau avec horaire toute journée si ça vole sur un créneau

@@ -98,12 +98,14 @@ class WindyParser :
             asTimestamp = datetimeDay.timestamp()
             if asTimestamp != now:
                 now = asTimestamp
-                if len(dayResult["slots"]) > 0 :
+                dayIsFlyable = len(list(filter(lambda x: x.get('flyable') == True, dayResult['slots']))) > 0
+                if dayIsFlyable :
                     spotResult["dates"].append(dayResult)
                 dayResult = { "day": asTimestamp, "slots": [] }
 
-            if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3 :
-                dayResult["slots"].append({"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl })
+            slot = {"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl }
+            slot['flyable'] = True if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3  else False    
+            dayResult["slots"].append(slot)
         
         logger.info(f"End parsing html for spot {self.spotName}") 
         return spotResult 
