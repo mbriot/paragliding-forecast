@@ -1,5 +1,7 @@
 ### Dev
 
+Ne rien dire sur signal si ça ne vole nul part, juste quand ça vole
+
 Logfile appender dans /var/log/paragliding-forecast
 
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
