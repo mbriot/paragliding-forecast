@@ -28,11 +28,11 @@ class SignalSender :
             if flyablesDay.get(date,None) is not None and flyablesDay[date].get(spot,None) is None and len(flyableHours) > 0:
                 flyablesDay[date][spot] = []
             if len(flyableHours) > 0:
-                flyablesDay[date][spot].append(flyableHours)
+                flyablesDay[date][spot] = flyablesDay[date][spot] + flyableHours
     
         logger.debug(f"Send results to Signal")
         if len(flyablesDay.items()) == 0:
-            logger.info("It does not fly anywere anytime soon, nothing to send")
+            logger.info("It does not fly anywhere anytime soon, nothing to send")
             return
         self.sendSignalMessage(f"Analyse du {datetime.now().strftime('%A %d %B %H:%M')}")
         for date in sorted(flyablesDay.keys()):
