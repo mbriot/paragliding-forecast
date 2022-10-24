@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,8 @@ class WebsiteSender :
         for date in sorted(flyablesDay.keys()):
             sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = flyablesDay[date]        
 
+        logger.debug("Input data : ")
+        logger.debug(json.dumps(sortedPrediction, indent=4))
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
@@ -48,6 +51,8 @@ class WebsiteSender :
         for date in sorted(weekPrediction.keys()):
             sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = weekPrediction[date]        
 
+        logger.debug("Input data:")
+        logger.debug(json.dumps(sortedPrediction,indent=4))
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('all.j2')

@@ -22,6 +22,10 @@ Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une p
 
 ### Prod
 
+google analytics en fonction des 3 pages et la 404
+
+Customiser la 404 avec un truc marrant
+
 logrotation daily keep 5 dans /var/log/paragliding-forecast
 
 exposer service http : https://docs.ovh.com/fr/dedicated/firewall-iptables/
