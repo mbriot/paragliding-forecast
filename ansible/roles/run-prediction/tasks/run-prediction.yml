@@ -52,8 +52,11 @@
 
 - name: Move index.markdown in parapente-dans-le-nord
   shell:
-    cmd: mv index.markdown /home/centos/parapente-dans-le-nord
+    cmd: "mv {{ item }} /home/centos/parapente-dans-le-nord"
     chdir: /home/centos/paragliding-forecast
+  with_items:
+    - index.markdown
+    - all.markdown
   when: stat_result.stat.exists
 
 - name: commit
