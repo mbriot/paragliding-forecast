@@ -61,14 +61,12 @@
 
 - name: commit
   shell:
-    cmd: git commit -am "update index.markdown"
+    cmd: "{{ item }}"
     chdir: /home/centos/parapente-dans-le-nord
-  when: stat_result.stat.exists
-
-- name: push
-  shell:
-    cmd: git push
-    chdir: /home/centos/parapente-dans-le-nord
+  with_items:
+    - git add -A
+    - git commit -am "update index.markdown"
+    - git push
   when: stat_result.stat.exists
 
 - name: remove paragliding
