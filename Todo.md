@@ -2,10 +2,15 @@
 
 Logfile appender dans /var/log/paragliding-forecast
 
-Faire une page sur le site ou j'ai la météo de tous les sites meme si ça vole pas
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
 
 Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
+
+Sur page allDays : trier par score de "possibilité de vol" : avoir par jour le spot le moins pourri
+> Si le système de score est bien fait, les endroits ou on vol une fois en vert remonte en premier
+puis bonne direction plus de point que pas de pluie, vent trop fort plus de point que pas beaucoup de pluie
+Peut etre ne pas prendre en compte la pluie ?
+Ou tout simplement distance vent en degré la plus proche?
 
 Mettre prévision meteo-france pour la pluie heure par heure si possible
 Mettre risque orage 
@@ -13,8 +18,6 @@ Mettre risque orage
 s'abonner a windy premium pour un mois et voir si je peux avoir les previsions heure par heure avec selenium
 
 Pour les spots de la date du jour, mettre résultat balise depuis ce matin + prévision de toute la journée avec bon créneau en vert. Il faut pouvoir comparer windy et la balise d'un coup d'oeil dans un tableau
-
-Faire page site récapitulative des spots et des conditions
 
 mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, si Arome ok prend tout. Et mettre ça sous forme de tableau
 
