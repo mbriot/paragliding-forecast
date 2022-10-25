@@ -35,6 +35,7 @@ class SignalSender :
             logger.info("It does not fly anywhere anytime soon, nothing to send")
             return
         self.sendSignalMessage(f"Analyse du {datetime.now().strftime('%A %d %B %H:%M')}")
+        self.sendSignalMessage(f"Résultats en détail sur https://parapente-dans-le-nord.github.io")
         for date in sorted(flyablesDay.keys()):
             message = f"\n## {datetime.fromtimestamp(int(date)).strftime('%A %d %B')} ## \n\n"
             for spot,hours in flyablesDay[date].items():
