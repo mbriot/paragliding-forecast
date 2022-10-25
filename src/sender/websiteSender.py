@@ -8,6 +8,12 @@ logger = logging.getLogger(__name__)
 class WebsiteSender :
 
     def send(self, weekPrediction):
+        logger.debug("Input data at beginning:")
+        logger.debug(json.dumps(weekPrediction,indent=4))
+        f = open("/home/centos/beginning.json","w")
+        f.write(json.dumps(weekPrediction,indent=4))
+        f.close()
+
         self.generateFlyableDays(weekPrediction)
         self.generateAllDays(weekPrediction)
         #self.generateSpots()
@@ -46,12 +52,18 @@ class WebsiteSender :
 
     def generateAllDays(self, weekPrediction):
         logger.debug("Start generating markdown for allDays")
-       #retire les jours pas flyable 
+
+        logger.debug("Input data before sorting:")
+        logger.debug(json.dumps(weekPrediction,indent=4))
+        f = open("/home/centos/weekPrediction.json","w")
+        f.write(json.dumps(weekPrediction,indent=4))
+        f.close()
+
         sortedPrediction = {}
         for date in sorted(weekPrediction.keys()):
             sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = weekPrediction[date]        
 
-        logger.debug("Input data:")
+        logger.debug("Input data after sorting:")
         logger.debug(json.dumps(sortedPrediction,indent=4))
         f = open("/home/centos/allDaysResult.json","w")
         f.write(json.dumps(sortedPrediction,indent=4))
