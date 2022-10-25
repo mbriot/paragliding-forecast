@@ -53,6 +53,10 @@ class WebsiteSender :
 
         logger.debug("Input data:")
         logger.debug(json.dumps(sortedPrediction,indent=4))
+        f = open("/home/centos/allDaysResult.json","w")
+        f.write(json.dumps(sortedPrediction,indent=4))
+        f.close()
+
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('all.j2')
