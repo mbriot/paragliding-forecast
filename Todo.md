@@ -1,6 +1,5 @@
 ### Dev
 
-Logfile appender dans /var/log/paragliding-forecast
 
 Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
 
@@ -14,6 +13,8 @@ Ou tout simplement distance vent en degré la plus proche?
 
 Mettre prévision meteo-france pour la pluie heure par heure si possible
 Mettre risque orage 
+
+Logfile appender dans /var/log/paragliding-forecast
 
 s'abonner a windy premium pour un mois et voir si je peux avoir les previsions heure par heure avec selenium
 
