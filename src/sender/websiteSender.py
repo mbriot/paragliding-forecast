@@ -1,44 +1,23 @@
 import logging
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
-import json
-
+from util.util import sortByDate, getDaysWithAtLeastOneSlot
+import json 
+import calendar 
 logger = logging.getLogger(__name__)
 
 class WebsiteSender :
 
     def send(self, weekPrediction):
-        logger.debug("Input data at beginning:")
-        logger.debug(json.dumps(weekPrediction,indent=4))
-        f = open("/home/centos/beginning.json","w")
-        f.write(json.dumps(weekPrediction,indent=4))
-        f.close()
-
         self.generateFlyableDays(weekPrediction)
         self.generateAllDays(weekPrediction)
-        #self.generateSpots()
+        self.generateSpots()
     
     def generateFlyableDays(self, weekPrediction):
         logger.debug("Start generating markdown for flyableDays")
-        #retire les jours pas flyable du tout
-        flyablesDay = {}
-        for date in weekPrediction:
-            for spot, hours in weekPrediction[date].items():
-                flyableHours = list(filter(lambda x: x.get('flyable') == True, hours))
-                if len(flyableHours) == 0:
-                    continue
-                if flyablesDay.get(date,None) is None and len(flyableHours) > 0:
-                    flyablesDay[date] = {}
-                if flyablesDay.get(date,None) is not None and flyablesDay[date].get(spot,None) is None and len(flyableHours) > 0:
-                    flyablesDay[date][spot] = []
-                if len(flyableHours) > 0:
-                    flyablesDay[date][spot] = flyablesDay[date][spot] + hours
-        sortedPrediction = {}
-        for date in sorted(flyablesDay.keys()):
-            sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = flyablesDay[date]        
+        flyablesDay = getDaysWithAtLeastOneSlot(weekPrediction)
+        sortedPrediction = sortByDate(flyablesDay)
 
-        logger.debug("Input data : ")
-        logger.debug(json.dumps(sortedPrediction, indent=4))
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
@@ -53,21 +32,7 @@ class WebsiteSender :
     def generateAllDays(self, weekPrediction):
         logger.debug("Start generating markdown for allDays")
 
-        logger.debug("Input data before sorting:")
-        logger.debug(json.dumps(weekPrediction,indent=4))
-        f = open("/home/centos/weekPrediction.json","w")
-        f.write(json.dumps(weekPrediction,indent=4))
-        f.close()
-
-        sortedPrediction = {}
-        for date in sorted(weekPrediction.keys()):
-            sortedPrediction[datetime.fromtimestamp(int(date)).strftime('%A %d %B')] = weekPrediction[date]        
-
-        logger.debug("Input data after sorting:")
-        logger.debug(json.dumps(sortedPrediction,indent=4))
-        f = open("/home/centos/allDaysResult.json","w")
-        f.write(json.dumps(sortedPrediction,indent=4))
-        f.close()
+        sortedPrediction = sortByDate(weekPrediction)
 
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
@@ -80,14 +45,32 @@ class WebsiteSender :
         f.close()
         logger.debug("Markdown generated")
 
-    def generateSpots(self, spots):
+    def generateSpots(self):
+        logger.debug("Start generating markdown for sites")
+        
+        f = open("spots.json")
+        spots = json.loads(f.read())["spots"]
+        f.close() 
+
+        for idx, spot in enumerate(spots) :
+            if spot.get("excludeDays", None) is None :
+                excludeDaysReadable = "Aucune"
+            elif len(spot["excludeDays"]) == 7 :
+                excludeDaysReadable = "Toute la semaine"
+            else :
+                excludeDaysReadable = "le " + ", ".join([calendar.day_name[x] for x in spot['excludeDays']])
+            spots[idx]['excludeDaysReadable'] = excludeDaysReadable
+
+            if spot.get('monthsToExcludes') is not None :
+                excludeMonthsReadable = "toute l'année" if len(spot.get('monthsToExcludes')) == 12 else "pour les mois de " + ", ".join([calendar.month_name[x] for x in spot['monthsToExcludes']])
+                spots[idx]['excludeMonthsReadable'] = excludeMonthsReadable
+
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
-        template = env.get_template('spots.j2')
-        template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
+        template = env.get_template('about.j2')
         output = template.render(spots=spots)
 
-        f = open("sites.markdown","w")
+        f = open("about.markdown","w")
         f.write(output)
         f.close()
         logger.debug("Markdown generated")

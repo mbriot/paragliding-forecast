@@ -3,6 +3,7 @@ import json
 import requests
 from datetime import datetime
 import logging 
+from util.util import getDaysWithOnlyFlyablesSlots
 
 logger = logging.getLogger(__name__)
 
@@ -18,17 +19,7 @@ class SignalSender :
         self.groupId = config["groupID"]
         f.close()
 
-        # Remove slots marked as flyable False to get only flyable days
-        flyablesDay = {}
-        for date in weekPrediction:
-         for spot, hours in weekPrediction[date].items():
-            flyableHours = list(filter(lambda x: x.get('flyable') == True, hours))
-            if flyablesDay.get(date,None) is None and len(flyableHours) > 0:
-                flyablesDay[date] = {}
-            if flyablesDay.get(date,None) is not None and flyablesDay[date].get(spot,None) is None and len(flyableHours) > 0:
-                flyablesDay[date][spot] = []
-            if len(flyableHours) > 0:
-                flyablesDay[date][spot] = flyablesDay[date][spot] + flyableHours
+        flyablesDay = getDaysWithOnlyFlyablesSlots(weekPrediction)
     
         logger.debug(f"Send results to Signal")
         if len(flyablesDay.items()) == 0:
@@ -41,7 +32,11 @@ class SignalSender :
             for spot,hours in flyablesDay[date].items():
                 message += f"*****{spot.upper()}***** \n"
                 for hour in hours:
-                    message += f"\t - {hour['hour']} -> {hour['meanWind']}-{hour['maxWind']}km/h, {hour['direction']}, Pluie : {hour['precipitation']} \n"
+                    if hour["precipitation"] == "":
+                        precipitation = "0mm/h 🌞"
+                    else :
+                        precipitation = hour["precipitation"] + "mm/h 🌧️"
+                    message += f"\t - {hour['hour']} -> {hour['meanWind']}-{hour['maxWind']}km/h, {hour['direction']}, Pluie : {precipitation} \n"
                 message += "\n\n"
             self.sendSignalMessage(message)
 

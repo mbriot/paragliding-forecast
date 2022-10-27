@@ -101,9 +101,11 @@ class WindyParser :
                 spotResult["dates"].append(dayResult)
                 dayResult = { "day": asTimestamp, "slots": [] }
 
-            slot = {"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl }
+            slot = {"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl, "goodDirection": ", ".join(self.goodDirections), "minSpeed": self.minSpeed, "maxSpeed": self.maxSpeed }
             slot['flyable'] = True if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3  else False    
             dayResult["slots"].append(slot)
         
+        spotResult["dates"].append(dayResult)
         logger.info(f"End parsing html for spot {self.spotName}") 
+
         return spotResult 

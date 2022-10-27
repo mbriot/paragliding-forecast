@@ -1,7 +1,8 @@
 ### Dev
 
+Faire en sorte que Date = deroulable/fermable
 
-Faire la page descriptive des spots en dynamique + mettre dans index.md lien vers liste
+Faire une page par spot en lié par lien href avec les 2 pages principales
 
 Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 
@@ -10,6 +11,8 @@ Sur page allDays : trier par score de "possibilité de vol" : avoir par jour le 
 puis bonne direction plus de point que pas de pluie, vent trop fort plus de point que pas beaucoup de pluie
 Peut etre ne pas prendre en compte la pluie ?
 Ou tout simplement distance vent en degré la plus proche?
+
+Faire une passe de black, pylint  flake8 sur le code. Faire tourner ça avec Tox ?
 
 Mettre prévision meteo-france pour la pluie heure par heure si possible
 Mettre risque orage 
@@ -25,8 +28,6 @@ mettre tous les modeles windy si un des models est bon : si GFS ok prend tout, s
 Screenshot par site pour windy, meteo-parapente, meteoblue que je met dans une page lié en href au nom du spot
 
 ### Prod
-
-google analytics en fonction des 3 pages et la 404
 
 Customiser la 404 avec un truc marrant
 

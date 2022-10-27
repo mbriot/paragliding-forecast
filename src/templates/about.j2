@@ -1,0 +1,29 @@
+---
+layout: my-layout
+title:  "about"
+---
+
+|[QUAND CA VOLE](/)|[PREVISION TOTALE](all)|
+{: .links}
+
+# A propos de ce site
+
+Un créneau horaire, pour un site donné, est déclaré volable si la prévision météo correspond a la configuration pour le site en question. Si la prévision de précipitation excéde 3mm/h, le créneau est déclaré non-volable.
+
+Si les conditions sont réunies, le créneau horaire sera de couleur verte et de couleur rouge le cas échéant.
+
+Si vous avez une proposition d'amélioration à me faire, ou que vous rencontrez un bug, vous pouvez m'en faire part en créant une issue [github](https://github.com/parapente-dans-le-nord/parapente-dans-le-nord.github.io/issues).
+
+Ci-dessous, la configuration actuelle spot par spot : 
+
+{% for spot in spots -%}
+
+### {{ spot.name }}
+{: .spot_name}
+
+- Vent favorable : {{ spot.goodDirection | join(', ') }}
+- Vent minimum : {{ spot.minSpeed }} km/h
+- Vent maximum : {{ spot.maxSpeed }} km/h
+- Interdiction de vol : {% if spot.excludeDaysReadable %} {{ spot.excludeDaysReadable }} {{ spot.excludeMonthsReadable }} {% else %} Aucune {% endif %}
+
+{% endfor %}

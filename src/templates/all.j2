@@ -1,9 +1,9 @@
 ---
 layout: my-layout
-title:  "Touts les spots"
+title:  "Tous les spots"
 ---
 
-|[SITES](sites)|[QUAND CA VOLE](/)|
+|[A PROPOS](about)|[QUAND CA VOLE](/)|
 {: .links}
 
 # Prevision Windy, modèle Arome
@@ -25,7 +25,7 @@ page mise à jour le {{ now }}
     </tr>
 {% for spot, slots in spots.items() -%}
     <tr>
-        <td><strong>{{ slots[0].name }}</strong>  <br><a href="{{ "https://windy.com/" + slots[0].url }}">WINDY</a> - <span class="{{ '' if slots[0].balise else 'no-balise' }}">{% if slots[0].balise %}<a href="{{ slots[0].balise }}">BALISE</a> {% else %} BALISE {% endif %}</span> </td>
+        <td><strong>{{ slots[0].name }}</strong>  <br><a href="{{ "https://windy.com/" + slots[0].url }}">WINDY</a> - <span class="{{ '' if slots[0].balise else 'no-balise' }}">{% if slots[0].balise %}<a href="{{ slots[0].balise }}">BALISE</a> {% else %} BALISE {% endif %}</span><br> <span class="vent-favorable">{{ slots[0].goodDirection }}</span><br><span class="force-vent">de {{ slots[0].minSpeed }}km/h jusqu'à {{ slots[0].maxSpeed }}km/h</span> </td>
         {% if slots | length == 1 %}
             <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>
             <td><div class="not-flyable"><p>0-0km/h NA</p><p>🌧️ 0mm/h</p></div></td>

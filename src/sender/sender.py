@@ -10,15 +10,15 @@ class PredictionSender :
         self.sentToWebsite = click.get_current_context().params['send_to_website']
         self.sendToStdout = click.get_current_context().params['send_to_stdout']
 
-    def send(self, weekPrediciton):
+    def send(self, weekPrediction):
         if self.sendToStdout :
             stdoutSender = StdoutSender()
-            stdoutSender.send(weekPrediciton)
+            stdoutSender.send(weekPrediction)
 
         if self.sendToSignal:
             signalSender = SignalSender()
-            signalSender.send(weekPrediciton)
+            signalSender.send(weekPrediction)
         
         if self.sentToWebsite :
             websiteSender = WebsiteSender()
-            websiteSender.send(weekPrediciton)
+            websiteSender.send(weekPrediction)
