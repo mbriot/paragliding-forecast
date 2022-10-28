@@ -98,11 +98,12 @@ class WindyParser :
             asTimestamp = datetimeDay.timestamp()
             if asTimestamp != now:
                 now = asTimestamp
+                dayResult = self.setScore(dayResult)
                 spotResult["dates"].append(dayResult)
                 dayResult = { "day": asTimestamp, "slots": [] }
 
             slot = {"hour" : hour, "meanWind": meanWind, "maxWind": maxWind, "direction": direction, "precipitation": precipitation, "balise": self.balise, "url": self.spotUrl, "goodDirection": ", ".join(self.goodDirections), "minSpeed": self.minSpeed, "maxSpeed": self.maxSpeed }
-            slot['flyable'] = True if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3  else False    
+            slot['flyable'] = True if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3  else False
             dayResult["slots"].append(slot)
         
         # Don't show if I only have the beginning of the last day
@@ -111,3 +112,28 @@ class WindyParser :
         logger.info(f"End parsing html for spot {self.spotName}") 
 
         return spotResult 
+
+    def setScore(self, dayResult):
+        score = 0
+        for slot in dayResult['slots']:
+            if slot['direction'] in slot['goodDirection']:
+                score += 10
+            if int(slot['meanWind']) >= slot['minSpeed'] and int(slot['maxWind']) <= slot['maxSpeed']:
+                score += 3
+            if int(slot['maxWind']) >= slot['maxSpeed'] and int(slot['maxWind']) <= slot['maxSpeed'] + 10:
+                score -= 1
+            if int(slot['maxWind']) >= slot['maxSpeed'] and int(slot['maxWind']) >= slot['maxSpeed'] + 10:
+                score -= 3
+            if int(slot['meanWind']) <= slot['minSpeed']:
+                score -= 2
+            precipitation = 0.0 if slot['precipitation'] == "" else slot['precipitation']
+            if precipitation == 0:
+                score += 1
+            if precipitation > 0.0 and precipitation <= 1.0:
+                score += 0
+            if precipitation > 1.0 and precipitation <= 2.0:
+                score -= 1
+            if precipitation > 2.0:
+                score -= 2
+        dayResult['slots'][0]['score'] = score
+        return dayResult

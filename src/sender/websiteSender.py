@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
-from util.util import sortByDate, getDaysWithAtLeastOneSlot
+from util.util import sortByDate, getDaysWithAtLeastOneSlot, sortByScore
 import json 
 import calendar 
 logger = logging.getLogger(__name__)
@@ -33,12 +33,13 @@ class WebsiteSender :
         logger.debug("Start generating markdown for allDays")
 
         sortedPrediction = sortByDate(weekPrediction)
+        sortedByScore = sortByScore(sortedPrediction)
 
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('all.j2')
         template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
-        output = template.render(weekPrediction=sortedPrediction)
+        output = template.render(weekPrediction=sortedByScore)
 
         f = open("all.markdown","w")
         f.write(output)

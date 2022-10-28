@@ -49,3 +49,13 @@ def getDaysWithOnlyFlyablesSlots(weekPrediction):
         if len(flyableHours) > 0:
             flyablesDay[date][spot] = flyablesDay[date][spot] + flyableHours
     return flyablesDay
+
+def sortByScore(weekPrediction):
+    predictionByScore = {}
+    for date in weekPrediction.keys():
+        sortedByScore = sorted(weekPrediction[date].items(), key=lambda item: item[1][0]["score"], reverse=True)
+        sortedByScoreDict = {}
+        for key, value in sortedByScore:
+            sortedByScoreDict[key] = value
+        predictionByScore[date] = sortedByScoreDict
+    return predictionByScore
