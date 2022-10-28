@@ -57,6 +57,7 @@
   with_items:
     - index.markdown
     - all.markdown
+    - about.markdown
   when: stat_result.stat.exists
 
 - name: commit

@@ -1,16 +1,17 @@
 ### Dev
 
+Sur page allDays : trier par score de "possibilité de vol" : avoir par jour le spot le moins pourri
+> Si le système de score est bien fait, les endroits ou on vol une fois en vert remonte en premier
+puis bonne direction plus de point que pas de pluie, vent trop fort plus de point que pas beaucoup de pluie
+Peut etre ne pas prendre en compte la pluie ?
+Ou tout simplement distance vent en degré la plus proche?
+
 Faire en sorte que Date = deroulable/fermable
 
 Faire une page par spot en lié par lien href avec les 2 pages principales
 
 Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
 
-Sur page allDays : trier par score de "possibilité de vol" : avoir par jour le spot le moins pourri
-> Si le système de score est bien fait, les endroits ou on vol une fois en vert remonte en premier
-puis bonne direction plus de point que pas de pluie, vent trop fort plus de point que pas beaucoup de pluie
-Peut etre ne pas prendre en compte la pluie ?
-Ou tout simplement distance vent en degré la plus proche?
 
 Faire une passe de black, pylint  flake8 sur le code. Faire tourner ça avec Tox ?
 

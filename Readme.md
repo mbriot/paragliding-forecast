@@ -1,4 +1,4 @@
-["O","OSO","SSO","SO","SE","N","NE","NNE","NNO","ESE","E","S", "SSE", "SE"],
+["O","OSO","SSO","SO","SE","N","NE","NNE","NNO","ESE","E","S", "SSE", "SE"]
 
 python -m venv .venv
 source .venv/bin/activate
