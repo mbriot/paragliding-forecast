@@ -3,18 +3,9 @@
         {
             "name": "Olhain",
             "url": "50.434/2.586?50.031,2.587,8,m:e3eagft",
-            "goodDirection": ["SSO","S","SSE"],
-            "minSpeed": 5,
-            "maxSpeed": 25
-        },
-        {
-            "name": "Cran aux oeufs",
-            "url": "50.847/1.584?50.451,1.582,8,m:e3TagdN",
-            "goodDirection":["OSO"],
-            "minSpeed": 10,
-            "maxSpeed": 25,
-            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
+            "goodDirection": ["O","OSO","SSO","SO","SE","N","NE","NNE","NNO","ESE","E","S", "SSE", "SE"],
+            "minSpeed": 0,
+            "maxSpeed": 45
         }
-
     ]
 }

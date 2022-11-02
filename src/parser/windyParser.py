@@ -77,7 +77,7 @@ class WindyParser :
         dayResult = { "day": now, "slots": [] }
         for i in range(len(hours)):
             hour = hours[i].get_text()
-            if int(hour) < 8 or int(hour) > 17:
+            if int(hour) < 7 or int(hour) > 16:
                 continue
             hour = str(hour) + "h-" + str(int(hour) + 3) + "h"
             timestamp = hours[i].get('data-ts')
@@ -105,7 +105,9 @@ class WindyParser :
             slot['flyable'] = True if direction in self.goodDirections and int(meanWind) >= self.minSpeed and int(maxWind) <= self.maxSpeed and int(float(precipitation or 0)) <= 3  else False    
             dayResult["slots"].append(slot)
         
-        spotResult["dates"].append(dayResult)
+        # Don't show if I only have the beginning of the last day
+        if len(dayResult['slots']) == 4 :
+            spotResult["dates"].append(dayResult)
         logger.info(f"End parsing html for spot {self.spotName}") 
 
         return spotResult 
