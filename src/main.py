@@ -35,6 +35,7 @@ def scrapeSpots(spots) :
                 break
             except Exception as e:
                 logger.info(f"exception number {retryNumber} while parsing spot {spot['name']}")
+                traceback.print_exc()
                 continue
     return result
 

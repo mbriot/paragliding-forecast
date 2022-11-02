@@ -116,7 +116,9 @@ class WindyParser :
     def setScore(self, dayResult):
         score = 0
         for slot in dayResult['slots']:
-            if slot['direction'] in slot['goodDirection']:
+            if slot['flyable']:
+                score += 10
+            if slot['direction'] in slot['goodDirection'].split(','):
                 score += 10
             if int(slot['meanWind']) >= slot['minSpeed'] and int(slot['maxWind']) <= slot['maxSpeed']:
                 score += 3
@@ -126,8 +128,8 @@ class WindyParser :
                 score -= 3
             if int(slot['meanWind']) <= slot['minSpeed']:
                 score -= 2
-            precipitation = 0.0 if slot['precipitation'] == "" else slot['precipitation']
-            if precipitation == 0:
+            precipitation = 0.0 if slot['precipitation'] == "" else float(slot['precipitation'])
+            if precipitation == 0.0:
                 score += 1
             if precipitation > 0.0 and precipitation <= 1.0:
                 score += 0
@@ -135,5 +137,6 @@ class WindyParser :
                 score -= 1
             if precipitation > 2.0:
                 score -= 2
+
         dayResult['slots'][0]['score'] = score
         return dayResult

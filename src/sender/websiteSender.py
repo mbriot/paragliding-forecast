@@ -17,12 +17,13 @@ class WebsiteSender :
         logger.debug("Start generating markdown for flyableDays")
         flyablesDay = getDaysWithAtLeastOneSlot(weekPrediction)
         sortedPrediction = sortByDate(flyablesDay)
+        sortedByScore = sortByScore(sortedPrediction)
 
         file_loader = FileSystemLoader('src/templates')
         env = Environment(loader=file_loader)
         template = env.get_template('index.j2')
         template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
-        output = template.render(weekPrediction=sortedPrediction)
+        output = template.render(weekPrediction=sortedByScore)
 
         f = open("index.markdown","w")
         f.write(output)
