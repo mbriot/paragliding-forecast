@@ -121,18 +121,18 @@ class WindyParser :
             logger.debug(f"[SCORING] set score for slot {str(i)}")
             i += 1
             if slot['flyable']:
-                logger.debug(f"[SCORING] slot is flyable, give 100 points")
+                logger.debug(f"[SCORING] slot is flyable, give 1000 points")
                 score += 1000
                 continue
 
             # DIRECTION
             if slot['direction'] in slot['goodDirection'].split(','):
-                logger.debug(f"[SCORING] slot in good direction, give 50 points")
+                logger.debug(f"[SCORING] slot in good direction, give 200 points")
                 score += 200
             # direction presque bonne 25
             neighbourgDirection = neighbourgDirections[slot['direction']]
-            if slot['direction'] not in slot['goodDirection'].split(',') and any(x in slot['goodDirection'] for x in neighbourgDirection):
-                logger.debug(f"[SCORING] slot in almost good direction, give 25 points")
+            if slot['direction'] not in slot['goodDirection'].split(',') and any(x in slot['goodDirection'].split(',') for x in neighbourgDirection):
+                logger.debug(f"[SCORING] slot in almost good direction, give 100 points")
                 score += 100
 
             # VENT
