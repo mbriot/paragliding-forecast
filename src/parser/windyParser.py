@@ -119,7 +119,7 @@ class WindyParser :
         i = 0
         for slot in dayResult['slots']:
             logger.debug(f"[SCORING] set score for slot {str(i)}")
-            i += 1
+            scoreBefore = score
             if slot['flyable']:
                 logger.debug(f"[SCORING] slot is flyable, give 1000 points")
                 score += 1000
@@ -163,6 +163,9 @@ class WindyParser :
             if precipitation < 1.0:
                 logger.debug(f"[SCORING] precipitation under 1.0, give 5 points")
                 score += 5
+            logger.debug(f"slot {str(i)} got a score of {str(score - scoreBefore)}")
+            i += 1
 
+        logger.debug(f"slots got a score of {str(score)}")
         dayResult['slots'][0]['score'] = score
         return dayResult
