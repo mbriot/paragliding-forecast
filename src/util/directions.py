@@ -359,3 +359,22 @@ windDirections = {0: 'N',
  358: 'N',
  359: 'N',
  360: 'N'}
+
+neighbourgDirections = {
+    "OSO": ["SO","O"],
+    "O": ["OSO","ONO"],
+    "ONO": ["O","NO"],
+    "NO": ["ONO","NNO"],
+    "NNO": ["NO","N"],
+    "N": ["NNO","NNE"],
+    "NNE": ["N","NE"],
+    "NE": ["NNE","ENE"],
+    "ENE": ["NE","E"],
+    "E": ["ENE","ESE"],
+    "ESE": ["E","SE"],
+    "SE": ["ESE","SSE"],
+    "SSE": ["SE","S"],
+    "S": ["SSE","SSO"],
+    "SSO": ["S","SO"],
+    "SO": ["SSO","OSO"]
+}

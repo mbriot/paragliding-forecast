@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from util.directions import windDirections 
+from util.directions import windDirections, neighbourgDirections
 import re
 from datetime import datetime, timedelta
 import time
@@ -108,6 +108,7 @@ class WindyParser :
         
         # Don't show if I only have the beginning of the last day
         if len(dayResult['slots']) == 4 :
+            dayResult = self.setScore(dayResult)
             spotResult["dates"].append(dayResult)
         logger.info(f"End parsing html for spot {self.spotName}") 
 
@@ -115,28 +116,53 @@ class WindyParser :
 
     def setScore(self, dayResult):
         score = 0
+        i = 0
         for slot in dayResult['slots']:
+            logger.debug(f"[SCORING] set score for slot {str(i)}")
+            i += 1
             if slot['flyable']:
-                score += 10
+                logger.debug(f"[SCORING] slot is flyable, give 100 points")
+                score += 1000
+                continue
+
+            # DIRECTION
             if slot['direction'] in slot['goodDirection'].split(','):
-                score += 10
+                logger.debug(f"[SCORING] slot in good direction, give 50 points")
+                score += 50
+            # direction presque bonne 25
+            neighbourgDirection = neighbourgDirections[slot['direction']]
+            if slot['direction'] not in slot['goodDirection'].split(',') and any(x in slot['goodDirection'] for x in neighbourgDirection):
+                logger.debug(f"[SCORING] slot in almost good direction, give 25 points")
+                score += 25
+
+            # VENT
+            # parfait = 25
             if int(slot['meanWind']) >= slot['minSpeed'] and int(slot['maxWind']) <= slot['maxSpeed']:
-                score += 3
+                logger.debug(f"[SCORING] wind is perfect, give 25 points")
+                score += 25
+            # leger au dessus : 15
             if int(slot['maxWind']) >= slot['maxSpeed'] and int(slot['maxWind']) <= slot['maxSpeed'] + 10:
-                score -= 1
+                logger.debug(f"[SCORING] wind is a little bit stronger, give 15 points")
+                score += 15
+            # trop bas mais pas trop haut : 15
+            if int(slot['meanWind']) <= slot['minSpeed'] and int(slot['maxWind']) <= slot['maxSpeed']:
+                logger.debug(f"[SCORING] wind too slow, give 25 points")
+                score += 15
+            # bcoup trop au dessus 5
             if int(slot['maxWind']) >= slot['maxSpeed'] and int(slot['maxWind']) >= slot['maxSpeed'] + 10:
-                score -= 3
-            if int(slot['meanWind']) <= slot['minSpeed']:
-                score -= 2
+                logger.debug(f"[SCORING] wind way too strong, give 5 points")
+                score += 5
+            
+            # PLUIE
             precipitation = 0.0 if slot['precipitation'] == "" else float(slot['precipitation'])
+            # pas de pluie 10
             if precipitation == 0.0:
-                score += 1
-            if precipitation > 0.0 and precipitation <= 1.0:
-                score += 0
-            if precipitation > 1.0 and precipitation <= 2.0:
-                score -= 1
-            if precipitation > 2.0:
-                score -= 2
+                logger.debug(f"[SCORING] no precipitation, give 10 points")
+                score += 10
+            # moins de 1 : 5
+            if precipitation < 1.0:
+                logger.debug(f"[SCORING] precipitation under 1.0, give 5 points")
+                score += 5
 
         dayResult['slots'][0]['score'] = score
         return dayResult
