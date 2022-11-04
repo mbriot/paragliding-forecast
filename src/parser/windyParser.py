@@ -128,12 +128,12 @@ class WindyParser :
             # DIRECTION
             if slot['direction'] in slot['goodDirection'].split(','):
                 logger.debug(f"[SCORING] slot in good direction, give 50 points")
-                score += 50
+                score += 200
             # direction presque bonne 25
             neighbourgDirection = neighbourgDirections[slot['direction']]
             if slot['direction'] not in slot['goodDirection'].split(',') and any(x in slot['goodDirection'] for x in neighbourgDirection):
                 logger.debug(f"[SCORING] slot in almost good direction, give 25 points")
-                score += 25
+                score += 100
 
             # VENT
             # parfait = 25

@@ -1,11 +1,10 @@
 ### Dev
 
-Sur page allDays : trier par score de "possibilité de vol" : avoir par jour le spot le moins pourri
-
-Si le vent est prevu est voisin d'une bonne direction donner 5pts, par exemple : voulu = SSO, actuel = SO -> SO voisin de SSO
 Renommer --send-to-website en --generate-markdown
 
 Faire en sorte que Date = deroulable/fermable
+
+Faire une page par jour
 
 Faire une page par spot en lié par lien href avec les 2 pages principales
 
