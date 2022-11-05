@@ -6,43 +6,65 @@
             "goodDirection" : ["SO","O","OSO"],
             "minSpeed" : 15,
             "maxSpeed" : 30,
-            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159",
+            "ffvl": "https://federation.ffvl.fr/sites_pratique/voir/1355",
+            "remarque": "Ne volez pas a marée haute pour votre sécurité."
         },
         {
             "name": "La Comté",
             "url": "50.426/2.500?50.025,2.499,8",
-            "goodDirection" : ["O","OSO","ONO","NO"],
+            "goodDirection" : ["O","ONO","NO"],
             "minSpeed" : 6,
-            "maxSpeed" : 30,
+            "maxSpeed" : 25,
             "excludeDays": [6],
             "monthsToExcludes": [9,10,11,12,1,2],
-            "balise":"https://balisemeteo.com/balise.php?idBalise="
+            "balise":"https://balisemeteo.com/balise.php?idBalise=",
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/1303",
+            "remarque": "Interdiction de vol le dimanche en période de chasse."
         },
         {
             "name": "Sangatte - Cap Blanc Nez",
             "url": "50.945/1.742?50.548,1.741,8,m:e33agd3",
-            "goodDirection": ["NO","NNO","N","ONO"],
+            "goodDirection": ["NO","N"],
             "minSpeed": 13,
-            "maxSpeed": 30,
+            "maxSpeed": 25,
             "excludeDays": [0,1,2,3,4,5,6],
-            "monthsToExcludes": [2,3,4,5,6,7],
-            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
+            "monthsToExcludes": [2,3,4,5,6,7,8],
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159",
+            "ffvl":"http://vol.libre.free.fr/b1caps.htm",
+            "remarque":"Interdiction de vol a prendre en compte. Site non officiel mais toléré, rester discret."
+        },
+        {
+            "name": "Escalles",
+            "url": "50.918/1.714?arome,50.522,1.714,8",
+            "goodDirection": ["NO","N"],
+            "minSpeed": 15,
+            "maxSpeed": 25,
+            "excludeDays": [0,1,2,3,4,5,6],
+            "monthsToExcludes": [2,3,4,5,6,7,8],
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159",
+            "ffvl":"http://vol.libre.free.fr/b1caps.htm",
+            "remarque":"Interdiction de vol a prendre en compte. Site non officiel mais toléré, rester discret."
         },
         {
             "name": "Zuydcotte",
             "url": "51.064/2.491?50.669,2.488,8,m:e4hagfk",
-            "goodDirection": ["NNO","NNE","N"],
+            "goodDirection": ["NNO","N"],
             "minSpeed": 15,
             "maxSpeed": 30,
-            "balise":"https://www.allosurf.net/meteo/live/dunkerque-station-meteo-lfak-8329.html"
+            "balise":"https://www.allosurf.net/meteo/live/dunkerque-station-meteo-lfak-8329.html",
+            "ffvl":"",
+            "remarque": "Le vol n'est toléré que devant l'hopital maritime. Attention a marée haute."
         },
         {
             "name": "Wissant",
             "url": "50.885/1.653?50.488,1.653,8,m:e3XagdU",
             "goodDirection": ["ONO","NO","NNO"],
-            "minSpeed": 15,
+            "minSpeed": 20,
             "maxSpeed": 30,
-            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159",
+            "ffvl":"",
+            "remarque": "Le vol n'y est que toléré. Ne dérangez personne. Attention a marée haute."
         },
         {
             "name": "Hornu",
@@ -50,14 +72,18 @@
             "goodDirection": ["OSO","ONO","O"],
             "minSpeed": 10,
             "maxSpeed": 30,
-            "balise": "https://balisemeteo.com/balise_histo.php?idBalise=5040"
+            "balise": "https://balisemeteo.com/balise_histo.php?idBalise=5040",
+            "ffvl": "https://www.fbvl.be/flying_sites/hornu/",
+            "remarque": "Beaucoup de monde le weekend."
         },
         {
             "name": "Olhain",
             "url": "50.434/2.586?50.031,2.587,8,m:e3eagft",
-            "goodDirection": ["SSO","S","SSE"],
+            "goodDirection": ["SSO","S"],
             "minSpeed": 5,
-            "maxSpeed": 25
+            "maxSpeed": 25,
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/486",
+            "remarque":"En condition thermique, peu de vent peut suffire. Pour tenir en dynamique, un minimum de 15km/h est requis. Sites très technique, non conseillé aux débutants."
         },
 	    {
             "name": "Licques",
@@ -66,14 +92,18 @@
             "minSpeed": 10,
             "maxSpeed": 25,
             "excludeDays": [6],
-            "monthsToExcludes": [9,10,11,12,1,2]
+            "monthsToExcludes": [9,10,11,12,1,2],
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/348",
+            "remarque": "Interdiction de vol le dimanche en période de chasse."
         },
         {
             "name": "Mont Clairon",
             "url": "49.919/2.729?49.515,2.730,8,m:e2magfH",
             "goodDirection":["SO"],
             "minSpeed": 12,
-            "maxSpeed": 25
+            "maxSpeed": 25,
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/1365",
+            "remarque": "Site dans la CTR classe D de l'aerodrome d'ALBERT-BRAY. Appeler la tour de controle avant de se mettre en l'air : 03.22.75.06.01. Période de chasse possible, prendre garde."
         },
         {
             "name": "Frencq",
@@ -83,7 +113,9 @@
             "maxSpeed": 25,
             "excludeDays": [6],
             "monthsToExcludes": [9,10],
-            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159"
+            "balise":"https://balisemeteo.com/balise_histo.php?idBalise=159",
+            "ffvl":"http://vol.libre.free.fr/b1frencq.htm",
+            "remarque": "Periode de chasse a prendre en compte. Appeler la tour de contrôle avant de se mettre en l'air, aérodrome du Touquet en classe D : 03-21-06-62-86 ou 03-21-06-62-71ou 03-21-06-62-73."
         },
         {
             "name": "La Creche",
@@ -93,7 +125,9 @@
             "maxSpeed": 25,
             "excludeDays": [0,1,2,3,4,5,6],
             "monthsToExcludes": [1,2,3,4,5,6,7,8],
-            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
+            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004",
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/740",
+            "remarque":""
         },
         {
             "name": "Cran aux oeufs",
@@ -101,9 +135,9 @@
             "goodDirection":["OSO"],
             "minSpeed": 10,
             "maxSpeed": 25,
-            "excludeDays": [6],
-            "monthsToExcludes": [9,10],
-            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004"
+            "balise":"https://www.meteociel.fr/temps-reel/obs_villes.php?code2=7004",
+            "ffvl":"",
+            "remarque":"Site non officiel et uniquement toléré. Faire très attention a la marée haute."
         }
 
     ]

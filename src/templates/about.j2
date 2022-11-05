@@ -25,5 +25,8 @@ Ci-dessous, la configuration actuelle spot par spot :
 - Vent minimum : {{ spot.minSpeed }} km/h
 - Vent maximum : {{ spot.maxSpeed }} km/h
 - Interdiction de vol : {% if spot.excludeDaysReadable %} {{ spot.excludeDaysReadable }} {{ spot.excludeMonthsReadable }} {% else %} Aucune {% endif %}
+- Balise : {% if spot.balise %} [{{ spot.balise }}]({{ spot.balise }})  {% endif %}
+- Fiche FFVL: {% if spot.ffvl %} [{{ spot.ffvl }}]({{ spot.ffvl }})  {% endif %}
+- Remarque : {{ spot.remarque }}
 
 {% endfor %}

@@ -2,8 +2,6 @@
 
 Renommer --send-to-website en --generate-markdown
 
-Faire en sorte que Date = deroulable/fermable
-
 Faire une page par jour
 
 Faire une page par spot en lié par lien href avec les 2 pages principales
