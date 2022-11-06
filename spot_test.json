@@ -1,11 +1,16 @@
 {
     "spots" : [
         {
-            "name": "Olhain",
-            "url": "50.434/2.586?50.031,2.587,8,m:e3eagft",
-            "goodDirection": ["SSO","S","SSE"],
-            "minSpeed": 5,
-            "maxSpeed": 25
+            "name": "La Comté",
+            "url": "50.426/2.500?50.025,2.499,8",
+            "goodDirection" : ["O","ONO","NO"],
+            "minSpeed" : 6,
+            "maxSpeed" : 25,
+            "excludeDays": [6],
+            "monthsToExcludes": [9,10,11,12,1,2],
+            "balise":"https://balisemeteo.com/balise.php?idBalise=",
+            "ffvl":"https://federation.ffvl.fr/sites_pratique/voir/1303",
+            "remarque": "Interdiction de vol le dimanche en période de chasse."
         }
     ]
 }
