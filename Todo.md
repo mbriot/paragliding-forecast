@@ -1,12 +1,22 @@
 ### Dev
 
+Ajouter Sites de Dannes
+
 Renommer --send-to-website en --generate-markdown
 
 Faire une page par jour
 
-Faire une page par spot en lié par lien href avec les 2 pages principales
+Faire un lien par spot vers son id dans about pour avoir rapidement description
 
 Ajouter les horaire de marée pour les spots de bord de mer, 1h30 avant/après marée haute
+
+Faire un second site pour avoir normandie et autre pour les gros weekends
+- création repo
+- ajout mbriot repo
+- cron dédié pour les spots
+- fichier de spots.json a créer
+- qu'a partir du mercredi jusqu'au vendredi midi
+- avoir une page par fichier de spot : normandie.json, sedan.json, troyes.json, reims.json...
 
 Ajouter des tests unitaires avec pytest
 
