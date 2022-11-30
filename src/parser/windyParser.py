@@ -154,7 +154,7 @@ class WindyParser :
                 score += 5
             
             # PLUIE
-            precipitation = 0.0 if slot['precipitation'] == "" else float(slot['precipitation'])
+            precipitation = 0.0 if slot['precipitation'] == "" else float(slot['precipitation'].replace("cm","").replace("mm",""))
             # pas de pluie 10
             if precipitation == 0.0:
                 logger.debug(f"[SCORING] no precipitation, give 10 points")
