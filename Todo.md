@@ -1,6 +1,6 @@
 ### Dev
 
-Ajouter Sites de Dannes
+Bug : pour les precipitations, des fois il se peut que j'ai 0.3cm au lieu de 0.3mm et ça ppète la regex
 
 Renommer --send-to-website en --generate-markdown
 
