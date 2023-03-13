@@ -1,0 +1,20 @@
+{
+    "spots" : [
+        {
+            "name": "Mont Poupet",
+            "url": "46.970/5.876?46.541,5.876,8",
+            "goodDirection" : ["N","NNO","NO","ONO","O","OSO","SSO","SO","S","NNE","NE"],
+            "minSpeed" : 0,
+            "maxSpeed" : 20,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=92"
+        },
+        {
+            "name": "Mont Myon",
+            "url": "46.331/5.397?45.898,5.394,8,m:eWoagj8",
+            "goodDirection" : ["SO","OSO","O","ONO","NO"],
+            "minSpeed" : 0,
+            "maxSpeed" : 20,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=70"
+        } 
+    ]
+}

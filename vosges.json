@@ -1,0 +1,36 @@
+{
+    "spots" : [
+        {
+            "name": "Markstein le Treh",
+            "url": "47.926/7.012?47.505,7.012,8,m:eY1agmQ",
+            "goodDirection" : ["S" ,"SSO", "SO", "OSO", "O" ,"ONO", "NO"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=136"
+        },
+        {
+            "name": "Drumont",
+            "url": "47.898/6.919?47.687,6.919,9,m:eYYagmG",
+            "goodDirection" : ["NE", "ENE","E"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":""
+        },
+        {
+            "name": "waga",
+            "url": "47.903/6.996?47.900,6.983,15",
+            "goodDirection" : ["ONO", "O","OSO"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":""
+        },
+        {
+            "name": "Gustiberg",
+            "url": "47.894/6.934?47.891,6.934,15,m:eYYagmI",
+            "goodDirection" : ["S","SSE","SE"],
+            "minSpeed" : 0,
+            "maxSpeed" : 20,
+            "balise":""
+        }    
+    ]
+}

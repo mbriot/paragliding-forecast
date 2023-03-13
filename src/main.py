@@ -44,9 +44,11 @@ def scrapeSpots(spots) :
 @click.option("--config-file", required=False, type=str)
 @click.option("--send-to-signal", is_flag=True)
 @click.option("--send-to-website", is_flag=True)
+@click.option("--send-to-new-regions", is_flag=True)
+@click.option("--html-file", type=str)
 @click.option("--send-to-stdout", is_flag=True)
 @click.option("--verbose", "-v", is_flag=True, help="Be verbose please")
-def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_stdout):
+def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_website, send_to_new_regions, html_file, send_to_stdout):
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.debug(f"Parameters :  spot_file : {spot_file}, config_file: {config_file}")
     spots = getSpots(spot_file)
@@ -58,7 +60,7 @@ def processWeather(spot_file, config_file, verbose, send_to_signal, send_to_webs
         exit(1)
 
     predictions = getResultByDay(predictions)
-    PredictionSender().send(predictions)
+    PredictionSender().send(predictions, html_file)
 
 if __name__ == "__main__":
     processWeather()

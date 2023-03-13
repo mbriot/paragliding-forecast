@@ -1,0 +1,29 @@
+{
+    "spots" : [
+        {
+            "name": "Planfait",
+            "url": "45.853/6.223?45.415,6.223,8",
+            "goodDirection" : ["O"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":"https://www.openwindmap.org/PP496"
+        },
+        {
+            "name": "Forclaz",
+            "url": "45.814/6.247?45.375,6.246,8,m:eVwaglz",
+            "goodDirection" : ["N","NNO","NO","ONO","O"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":""
+        },
+        {
+            "name": "Saint Hilaire",
+            "url": "45.307/5.888?45.087,5.889,9,m:eUFagkX",
+            "goodDirection" : ["N", "NNE", "NE", "ESE","E", "SO", "SSO", "SSE","SE", "ESE", "E"],
+            "minSpeed" : 0,
+            "maxSpeed" : 15,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=61"
+        }
+        
+    ]
+}

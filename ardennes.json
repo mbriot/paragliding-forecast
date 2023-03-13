@@ -1,0 +1,20 @@
+{
+    "spots" : [
+        {
+            "name": "Revin",
+            "url": "49.948/4.625?49.543,4.625,8",
+            "goodDirection" : ["SSO","S","SSE"],
+            "minSpeed" : 5,
+            "maxSpeed" : 15,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=5019"
+        },
+        {
+            "name": "Haybes-Fumay",
+            "url": "49.998/4.715?49.913,4.738,10",
+            "goodDirection" : ["O","ONO","NO"],
+            "minSpeed" : 10,
+            "maxSpeed" : 20,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=104"
+        }
+    ]
+}

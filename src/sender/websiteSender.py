@@ -13,6 +13,9 @@ class WebsiteSender :
         self.generateAllDays(weekPrediction)
         self.generateSpots()
     
+    def sendNewRegions(self, weekPrediction, htmlName) :
+        self.generateAllDays(weekPrediction, htmlName)
+        
     def generateFlyableDays(self, weekPrediction):
         logger.debug("Start generating markdown for flyableDays")
         flyablesDay = getDaysWithAtLeastOneSlot(weekPrediction)
@@ -30,7 +33,7 @@ class WebsiteSender :
         f.close()
         logger.debug("Markdown generated")
 
-    def generateAllDays(self, weekPrediction):
+    def generateAllDays(self, weekPrediction, htmlName="all.markdown"):
         logger.debug("Start generating markdown for allDays")
 
         sortedPrediction = sortByDate(weekPrediction)
@@ -42,7 +45,7 @@ class WebsiteSender :
         template.globals['now'] = datetime.now().strftime('%A %d %B %H:%M')
         output = template.render(weekPrediction=sortedByScore)
 
-        f = open("all.markdown","w")
+        f = open(htmlName,"w")
         f.write(output)
         f.close()
         logger.debug("Markdown generated")
