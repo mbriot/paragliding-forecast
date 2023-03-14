@@ -9,11 +9,13 @@ logger = logging.getLogger(__name__)
 class WebsiteSender :
 
     def send(self, weekPrediction):
+        logger.debug("Start sending Nord spots")
         self.generateFlyableDays(weekPrediction)
         self.generateAllDays(weekPrediction)
         self.generateSpots()
     
     def sendNewRegions(self, weekPrediction, htmlName) :
+        logger.debug("Start sending others spots")
         self.generateAllDays(weekPrediction, htmlName)
         
     def generateFlyableDays(self, weekPrediction):

@@ -2,6 +2,8 @@ import click
 from sender.signalSender import SignalSender
 from sender.websiteSender import WebsiteSender
 from sender.stdoutSender import StdoutSender
+import logging
+logger = logging.getLogger(__name__)
 
 class PredictionSender :
 
@@ -12,6 +14,12 @@ class PredictionSender :
         self.sendNewRegions = click.get_current_context().params['send_to_new_regions']
 
     def send(self, weekPrediction, htmlName="all.markdown"):
+        logger.debug(f"sendToSignal : {self.sendToSignal}")
+        logger.debug(f"sendToWebsite : {self.sentToWebsite}")
+        logger.debug(f"sendToStdout : {self.sendToStdout}")
+        logger.debug(f"sendNewRegions : {self.sendNewRegions}")
+        logger.debug(f"htmlName : {htmlName}")
+        
         if self.sendToStdout :
             stdoutSender = StdoutSender()
             stdoutSender.send(weekPrediction)
