@@ -84,7 +84,7 @@ class WindyParser :
             direction = windDirections[int(re.search('[0-9]+', directions[i].div.get('style')).group())]
             maxWind = maxWinds[i].get_text()
             meanWind = meanWinds[i].get_text()
-            precipitation = precipitations[i].get_text()
+            precipitation = precipitations[i].get_text().replace("cm","").replace("mm","")
             datetimeDay = datetime.fromtimestamp(int(timestamp[:-3])).replace(hour=0, minute=0, second=0, microsecond=0)
             
             # don't process slot if in a not flyable day due to rules
