@@ -155,7 +155,7 @@
     weekday: "*"
     minute: "0"
     hour: "10,13,19,22"
-    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml &>> /home/centos/log.log
+    job: export PATH=$PATH:/home/centos/bin && ansible-playbook /home/centos/ansible/run.yml --e "pythonArgs='--spot-file=spots.json --html-file=all.markdown --send-to-website'" &>> /home/centos/log.log
     state: present
 
 - name: Send to Signal and website twice a day at 7 and 17 h

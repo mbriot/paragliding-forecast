@@ -67,4 +67,4 @@ curl -X 'POST' \
 
 python3 src/main.py --config-file=/home/centos/config.json --spot-file=ardennes.json --send-to-new-regions --html-file=ardennes.markdown -v
 
-
+python3 src/main.py --config-file=/home/centos/config.json --spot-file=spots.json --html-file=titi.markdown --send-to-website

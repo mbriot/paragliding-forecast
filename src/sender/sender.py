@@ -12,10 +12,6 @@ class PredictionSender :
         self.sendNewRegions = click.get_current_context().params['send_to_new_regions']
 
     def send(self, weekPrediction, htmlName="all.markdown"):
-        print(f"sendToSignal : {self.sendToSignal}")
-        print(f"sendToWebsite : {self.sentToWebsite}")
-        print(f"sendToStdout : {self.sendToStdout}")
-        print(f"sendToNewRegions : {self.sendNewRegions}")
         if self.sendToStdout :
             stdoutSender = StdoutSender()
             stdoutSender.send(weekPrediction)
