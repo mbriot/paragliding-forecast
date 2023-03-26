@@ -77,7 +77,7 @@ class WindyParser :
         dayResult = { "day": now, "slots": [] }
         for i in range(len(hours)):
             hour = hours[i].get_text()
-            if int(hour) < 7 or int(hour) > 16:
+            if int(hour) < 7 or int(hour) > 17:
                 continue
             hour = str(hour) + "h-" + str(int(hour) + 3) + "h"
             timestamp = hours[i].get('data-ts')
