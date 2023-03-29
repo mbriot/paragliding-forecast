@@ -1,0 +1,36 @@
+{
+    "spots" : [
+        {
+            "name": "Clecy",
+            "url": "48.929/-0.470?48.516,-0.470,8",
+            "goodDirection" : ["S","O","SSO","OSO","ONO"],
+            "minSpeed" : 5,
+            "maxSpeed" : 20,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=122"
+        },
+        {
+            "name": "Commes",
+            "url": "49.346/-0.726?48.936,-0.726,8",
+            "goodDirection" : ["N","NNE","NE","NNO"],
+            "minSpeed" : 15,
+            "maxSpeed" : 25,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=158"
+        },
+        {
+            "name":"Roche a bunel",
+            "url":"48.993/-0.499?48.580,-0.499,8",
+            "goodDirection":["E","ESE"],
+            "minSpeed": 5,
+            "maxSpeed": 20,
+            "balise":""
+        },
+        {
+            "name":"Dielette/Ecalgrain/Vauville/Carteret",
+            "url":"49.650/-1.856?49.243,-1.856,8",
+            "goodDirection":["O","OSO","SO","SSO","S","ONO","NO"],
+            "minSpeed": 15,
+            "maxSpeed": 25,
+            "balise":"http://www.balisemeteo.com/balise.php?idBalise=81"
+        }
+    ]
+}
