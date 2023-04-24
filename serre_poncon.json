@@ -1,36 +1,28 @@
 {
-    "spots" : [ 
+    "spots" : [
         {
-            "name": "Le Chalvet",
-            "url": "43.979/6.480?43.866,6.480,10,m:eSsaglX",
-            "goodDirection" : ["SO","SSO","S","SSE","SE"],
+            "name": "Batie Neuve",
+            "url": "44.584/6.236?44.559,6.262,10,m:eTtagly",
+            "goodDirection" : ["O","OSO","SO","SSO","S"],
             "minSpeed" : 0,
             "maxSpeed" : 15,
-            "balise":""
+            "balise":"https://www.openwindmap.org/PP554"
         },
         {
-            "name": "Mouchon",
-            "url": "43.992/6.424?43.878,6.425,10,m:eSuaglR",
+            "name": "Colombis",
+            "url": "44.494/6.216?44.559,6.262,10",
             "goodDirection" : ["O","OSO","SO"],
             "minSpeed" : 0,
             "maxSpeed" : 15,
             "balise":""
         },
         {
-            "name": "Clumanc",
-            "url": "44.027/6.402?43.914,6.403,10,m:eSxaglP",
-            "goodDirection" : ["O","OSO","ONO"],
+            "name": "Chorges",
+            "url": "44.578/6.280?44.559,6.262,10",
+            "goodDirection" : ["SE","SSE","S","SSO","SO","OSO","O"],
             "minSpeed" : 0,
             "maxSpeed" : 15,
-            "balise":""
-        },
-        {
-            "name": "Cousson",
-            "url": "44.054/6.240?43.940,6.241,10,m:eSAaglz",
-            "goodDirection" : ["SO"],
-            "minSpeed" : 0,
-            "maxSpeed" : 15,
-            "balise":""
+            "balise":"https://www.openwindmap.org/PP554"
         }
     ]
 }

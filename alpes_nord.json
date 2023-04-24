@@ -3,9 +3,9 @@
         {
             "name": "Planfait",
             "url": "45.853/6.223?45.415,6.223,8",
-            "goodDirection" : ["O"],
+            "goodDirection" : ["O","ONO","NO"],
             "minSpeed" : 0,
-            "maxSpeed" : 15,
+            "maxSpeed" : 25,
             "balise":"https://www.openwindmap.org/PP496"
         },
         {
